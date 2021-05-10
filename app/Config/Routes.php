@@ -33,6 +33,47 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
+$routes->get('login', 'Auth::login');
+
+$routes->group('admin', ['filter' => 'login'], function($routes)
+{	
+	$routes->add('/', 'Admin::index');
+
+	$routes->group('cabang', function($routes)
+	{
+		$routes->add('/', 'Admin::cabang');
+		$routes->add('getKota', 'Admin::getListKotaByProvinsi');
+		$routes->add('getListCabang', 'Admin::getListCabang');
+		$routes->add('data', 'Admin::dataCabang');
+		$routes->add('save', 'Admin::saveCabang');
+		$routes->add('delete', 'Admin::deleteCabang');
+	});
+
+	$routes->group('rute', function($routes)
+	{
+		$routes->add('/', 'Admin::rute');
+		$routes->add('data', 'Admin::getRute');
+		$routes->add('save', 'Admin::saveRute');
+		$routes->add('delete', 'Admin::deleteRute');
+	});
+
+	$routes->group('jadwal', function($routes)
+	{
+		$routes->add('/', 'Admin::jadwal');
+		$routes->add('data', 'Admin::getJadwal');
+		$routes->add('save', 'Admin::saveJadwal');
+		$routes->add('delete', 'Admin::deleteJadwal');
+	});
+
+	$routes->group('users', function($routes)
+	{
+		$routes->add('/', 'Admin::users');
+		$routes->add('data', 'Admin::getUsers');
+		$routes->add('save', 'Admin::saveUsers');
+		$routes->add('delete', 'Admin::deleteUsers');
+		$routes->add('password', 'Admin::ubahPasswordUsers');
+	});
+});
 
 /*
  * --------------------------------------------------------------------
