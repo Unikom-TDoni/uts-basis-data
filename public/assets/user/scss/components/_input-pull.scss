@@ -100,3 +100,37 @@
         }
     }
 }
+@media (max-width: 991.98px) {
+    .input-pull{
+        form{
+            .forminput{
+                flex-wrap: wrap;
+            }
+            .formsection{
+                width: 50%;
+                padding-top: 2.4rem;
+                padding-bottom: 3.6rem;
+                border-bottom: 1px solid rgba(0, 0 ,0, 0.1);
+                &:last-child{
+                    width: 100%;
+                    border-top: 1px solid rgba(0, 0 ,0, 0.1);
+                    padding-bottom: 1.6rem;
+                    padding-top: 1.6rem;
+                }
+                &.checkinput{
+                    button{
+                        width: 100%;
+                    }
+                }
+            }
+        }
+        .footer-result{
+            .buttonsubmit{
+                margin-top: 1.6rem;
+                button{
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

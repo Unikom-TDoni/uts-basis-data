@@ -5,26 +5,62 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="<?= base_url('assets/user')?>/vendor/bootstrap/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="<?= base_url('assets/user')?>/js/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="<?= base_url('assets/user')?>/css/main.min.css">
 </head>
 <body>
-    <nav class="navbar">
+    <header class="header">
         <div class="container">
-            <div class="row">
-                <div class="col-3">
-                    hello
+            <div class="row align-items-center">
+                <div class="col-3 navbar-logo">
+                    <img src="<?= base_url('assets/user')?>/image/logo.png" alt="logo">
                 </div>
                 <div class="col-9">
-                    test
+                    <nav class="navbar navbar-expand-lg">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">Travel</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Goods</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Pulls
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">How To</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Contact Us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Blog</a>
+                            </li>
+                            </ul>
+                        </div>
+                    </nav>
                 </div>
             </div>
         </div>
-    </nav>
+    </header>
     <section class="section1">
         <div class="container headline">
             <div class="row">
-                <div class="col-5">
+                <div class="col-md-5 order-2 order-md-1">
                     <div class="title">
                         <h1>Layanan Shuttle Antar Kota di Jawa</h1>
                     </div>
@@ -35,7 +71,7 @@
                         <a href="#" class="btn --md --red --cta">Temukan Kota Tujuan</a>
                     </div>
                 </div>
-                <div class="col-7">
+                <div class="col-md-7 order-1 order-md-2">
                     <div class="illustration">
                         <img src="<?= base_url('assets/user')?>/image/bg1.png" alt="travel image">
                     </div>
@@ -44,7 +80,7 @@
         </div>
         <div class="container adventages">
             <div class="row">
-                <div class="col-3 --title-sub">
+                <div class="col-md-6 col-lg-3 --title-sub">
                     <div class="adventage">
                         <div class="adventage--title">
                             <h3>Professional Driver</h3>
@@ -54,7 +90,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-3 --title-sub">
+                <div class="col-md-6 col-lg-3 --title-sub">
                     <div class="adventage">
                         <div class="adventage--title">
                             <h3>Easy Booking</h3>
@@ -64,7 +100,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-3 --title-sub">
+                <div class="col-md-6 col-lg-3 --title-sub">
                     <div class="adventage">
                         <div class="adventage--title">
                             <h3>On Time</h3>
@@ -74,7 +110,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-3 --title-sub">
+                <div class="col-md-6 col-lg-3 --title-sub">
                     <div class="adventage">
                         <div class="adventage--title">
                             <h3>Enjoy the Experience</h3>
@@ -140,11 +176,11 @@ foreach ($cabang as $item):?>
                             </div>
                             <div class="footer-result">
                                 <div class="row align-items-center">
-                                    <div class="col-8">
+                                    <div class="col-md-8">
                                         <span class="price" id="price"></span>
                                         <span id="status-pesan"></span>
                                     </div>  
-                                    <div class="col-4 buttonsubmit">
+                                    <div class="col-md-4 buttonsubmit">
                                         <button class="btn --red --md">
                                             Pesan Shuttle
                                         </button>
@@ -160,7 +196,7 @@ foreach ($cabang as $item):?>
     <section class="section2">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-5">
+                <div class="col-md-5 order-sm-1 order-2">
                     <div class="section --title">
                         <h2>Bagaimana Cara Memesan?</h2>
                         <p>Ikuti tahap berikut untuk memesan shuttle.</p>
@@ -186,7 +222,7 @@ foreach ($cabang as $item):?>
                         </div>
                     </div>
                 </div>
-                <div class="offset-1 col-6">
+                <div class="offset-md-1 col-md-6 order-sm-2 order-1">
                     <div class="illustration">
                         <img src="<?= base_url('assets/user')?>/image/bg2.png" alt="">
                     </div>
@@ -213,12 +249,12 @@ foreach ($cabang as $item):?>
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="Bandung" role="tabpanel" aria-labelledby="Bandung-tab">
                     <div class="row align-items-center">
-                        <div class="col-6 inner city-image">
+                        <div class="col-md-6 inner city-image">
                             <div class="image">
                                 <img src="<?= base_url('assets/user')?>/image/bandung.jpg" alt="photo bandung">
                             </div>
                         </div>
-                        <div class="col-6 inner points">
+                        <div class="col-md-6 inner points">
                             <?php foreach (array_filter($cabang, function($item) { return $item->nama_kota == "KOTA BANDUNG"; }) as $item):?>
                                 <div class="point">
                                     <div class="city --title">
@@ -233,12 +269,12 @@ foreach ($cabang as $item):?>
                 </div>
                 <div class="tab-pane fade" id="Jakarta" role="tabpanel" aria-labelledby="Jakarta-tab">
                     <div class="row align-items-center">
-                        <div class="col-6 inner city-image">
+                        <div class="col-md-6 inner city-image">
                             <div class="image">
                                 <img src="<?= base_url('assets/user')?>/image/jakarta.jpg" alt="photo bandung">
                             </div>
                         </div>
-                        <div class="col-6 inner points">
+                        <div class="col-md-6 inner points">
                             <?php foreach (array_filter($cabang, function($item) { return $item->nama_kota == "KOTA JAKARTA PUSAT"; }) as $item):?>
                                 <div class="point">
                                     <div class="city --title">
@@ -253,12 +289,12 @@ foreach ($cabang as $item):?>
                 </div>
                 <div class="tab-pane fade" id="Semarang" role="tabpanel" aria-labelledby="Semarang-tab">
                     <div class="row align-items-center">
-                        <div class="col-6 inner city-image">
+                        <div class="col-md-6 inner city-image">
                             <div class="image">
                                 <img src="<?= base_url('assets/user')?>/image/semarang.jpg" alt="photo bandung">
                             </div>
                         </div>
-                        <div class="col-6 inner points">
+                        <div class="col-md-6 inner points">
                             <?php foreach (array_filter($cabang, function($item) { return $item->nama_kota == "KOTA SEMARANG"; }) as $item):?>
                                 <div class="point">
                                     <div class="city --title">
@@ -273,12 +309,12 @@ foreach ($cabang as $item):?>
                 </div>
                 <div class="tab-pane fade" id="yogyakarta" role="tabpanel" aria-labelledby="yogyakarta-tab">
                     <div class="row align-items-center">
-                        <div class="col-6 inner city-image">
+                        <div class="col-md-6 inner city-image">
                             <div class="image">
                                 <img src="<?= base_url('assets/user')?>/image/yogyakarta.jpg" alt="photo bandung">
                             </div>
                         </div>
-                        <div class="col-6 inner points">
+                        <div class="col-md-6 inner points">
                             <?php foreach (array_filter($cabang, function($item) { return $item->nama_kota == "KOTA YOGYAKARTA"; }) as $item):?>
                                 <div class="point">
                                     <div class="city --title">
@@ -297,7 +333,7 @@ foreach ($cabang as $item):?>
     <section class="section5">
         <div class="container">
             <div class="row">
-                <div class="ads">
+                <div class="ads" style="background: url(<?= base_url('assets/user')?>/image/goods.jpg) center center; background-size: cover;">
                     <div class="title --title">
                         <h2>Ingin Mengirim Barang?</h2>
                         <span>Kirim barang 1 hari sampai dengan shuttle kami.</span>
@@ -313,7 +349,7 @@ foreach ($cabang as $item):?>
                 <img src="" alt="">
             </div>
             <div class="row footer-mid">
-                <div class="col-8 footer-links-outer">
+                <div class="col-lg-8 footer-links-outer">
                     <div class="footer-links">
                         <div class="title --title">
                             <h3>About</h3>
@@ -351,7 +387,7 @@ foreach ($cabang as $item):?>
                         </div>
                     </div>
                 </div>
-                <div class="offset-1 col-3">
+                <div class="offset-lg-1 col-lg-3">
                     <div class="social-media">
                         <div class="title --title">
                             <h3>Social Media</h3>
@@ -372,8 +408,8 @@ foreach ($cabang as $item):?>
             </div>
         </div>
     </footer>
-    <script src="<?= base_url('assets/user')?>/vendor/bootstrap/jquery.min.js"></script>
-    <script src="<?= base_url('assets/user')?>/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="<?= base_url('assets/user')?>/js/bootstrap/jquery.min.js"></script>
+    <script src="<?= base_url('assets/user')?>/js/bootstrap/bootstrap.bundle.min.js"></script>
     <script src="<?= base_url('assets/user')?>/js/main.js"></script>
 </body>
 </html>

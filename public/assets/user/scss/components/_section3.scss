@@ -74,3 +74,17 @@
         }
     }
 }
+
+@media (max-width: 767.98px) {
+    .section3{
+        .inner{
+            &.points{
+                margin-top: 3.2rem;
+                justify-content: normal;
+            }
+            &.city-image{
+                padding-right: 0;
+            }
+        }
+    }
+}

@@ -59,3 +59,26 @@
         }
     }
 }
+
+@media (max-width: 767.98px) {
+    .footer{
+        .footer-mid{
+            margin: auto auto 6rem;
+            width: 90%;
+        }
+        .footer-links-outer{
+            flex-wrap: wrap;
+        }
+        .footer-links{
+            width: 50%;
+            margin-bottom: 3.2rem;
+        }
+    }
+}
+@media (max-width: 575.98px) {
+    .footer{
+        .footer-links{
+            width: 100%;
+        }
+    }
+}

@@ -108,6 +108,16 @@ a{
         opacity: 0.8;
     }
 }
+header, section, footer{
+    padding-left: 3.2rem;
+    padding-right: 3.2rem;
+}
+@media (max-width: 767.98px) {
+    header, section, footer{
+        padding-left: 1.6rem;
+        padding-right: 1.6rem;
+    }   
+}
 
 @import 'components/navbar';
 @import 'components/input-pull';
