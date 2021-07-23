@@ -68,7 +68,7 @@
                 <!-- LOGO -->
                 <div class="topbar-left">
                     <div class="text-center">
-                        <!-- {{-- <a href="{{url('admin')}}" class="logo"><span><img src="{{URL::asset('assets')}}/logo_abd2.png" style="height: 55px; width: 130px;"> </span></a> --}} -->
+                        <a href="<?= site_url('admin')?>" class="logo"> <span>RD TRANS</span></a>
                     </div>
                 </div>
                 <!-- Button mobile view to collapse sidebar menu -->

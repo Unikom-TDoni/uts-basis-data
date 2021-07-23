@@ -6,7 +6,7 @@ class Rute_model extends Model
     protected $table            = "rute";
     protected $primaryKey       = "id_rute";
     protected $useAutoIncrement = true;
-    protected $allowedFields    = ['id_cabang_asal', 'id_cabang_tujuan', 'jarak_tempuh', 'waktu_tempuh'];
+    protected $allowedFields    = ['id_cabang_asal', 'id_cabang_tujuan', 'harga_tiket', 'jarak_tempuh', 'waktu_tempuh'];
 
 
     public function getData($id="")

@@ -121,6 +121,7 @@ class Admin extends BaseController
 
         $data['id_cabang_asal']    = $this->request->getVar('cabang_asal');
         $data['id_cabang_tujuan']  = $this->request->getVar('cabang_tujuan');
+        $data['harga_tiket']       = $this->request->getVar('harga_tiket');
         $data['jarak_tempuh']      = $this->request->getVar('jarak_tempuh');
         $data['waktu_tempuh']      = $this->request->getVar('waktu_tempuh');
 

@@ -30,6 +30,7 @@
                                 <th>Kota Asal</th>
                                 <th>Cabang Tujuan</th>
                                 <th>Kota Tujuan</th>
+                                <th>Harga Tiket</th>
                                 <th>Jarak Tempuh</th>
                                 <th>Waktu Tempuh</th>
                                 <th>Aksi</th>
@@ -42,9 +43,10 @@
                                 <td><?= $data['kota_asal'] ?></td>
                                 <td><?= $data['nama_cabang_tujuan'] ?></td>
                                 <td><?= $data['kota_tujuan'] ?></td>
+                                <td><?= "Rp " . number_format($data['harga_tiket']) ?></td>
                                 <td><?= $data['jarak_tempuh'] ?> km</td>
                                 <td><?= $data['waktu_tempuh'] ?> menit</td>
-                                <td class="actions">
+                                <td class="actions" width="10%">
                                     <button class="btn btn-icon btn-sm btn-success" onclick="edit(<?= $data['id_rute'] ?>)"> <i class="fa fa-edit"></i> </button> 
                                     <button class="btn btn-icon btn-sm btn-danger" onclick="hapus(<?= $data['id_rute'] ?>)"> <i class="fa fa-trash"></i> </button>
                                 </td>
@@ -91,6 +93,14 @@
                             </div>
                         </div> 
                     </div>
+                    <div class="row"> 
+                        <div class="col-md-12"> 
+                            <div class="form-group"> 
+                                <label class="control-label">Harga Tiket</label>
+                                <input type="number" class="form-control" id="harga_tiket" name="harga_tiket" placeholder="Harga Tiket" min="0" required> 
+                            </div> 
+                        </div>
+                    </div> 
                     <div class="row"> 
                         <div class="col-md-6"> 
                             <div class="form-group"> 
@@ -166,6 +176,7 @@
                 $("#id").val(id);
                 $("#cabang_asal").val(value.id_cabang_asal);
                 $("#cabang_tujuan").val(value.id_cabang_tujuan);
+                $("#harga_tiket").val(value.harga_tiket);
                 $("#jarak_tempuh").val(value.jarak_tempuh);
                 $("#waktu_tempuh").val(value.waktu_tempuh);
             }
@@ -177,6 +188,7 @@
         $("#id").val("");
         $("#cabang_asal").val("");
         $("#cabang_tujuan").val("");
+        $("#harga_tiket").val("");
         $("#jarak_tempuh").val("");
         $("#waktu_tempuh").val("");
     }

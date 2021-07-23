@@ -22,6 +22,9 @@ class Rute extends Migration
 				'type'           => 'INT',
 				'constraint'     => 11
 			],
+			'harga_tiket'       => [
+				'type'           => 'DOUBLE'
+			],
 			'jarak_tempuh'       => [
 				'type'           => 'INT',
 				'constraint'     => 11
