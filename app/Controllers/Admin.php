@@ -185,6 +185,7 @@ class Admin extends BaseController
         $data['page']       = 'users';
         $data['cabang']     = $this->cabang_model->findAll();
         $data['users']      = $this->users_model->getData()->getResultArray();
+        $data['level']      = array('Admin', 'Pengadaan', 'Penjadwalan', 'Kasir');
 
         return view('admin/pages/users', $data);
 	}
@@ -203,6 +204,7 @@ class Admin extends BaseController
         $username       = $this->request->getVar('username');
         $nama           = $this->request->getVar('nama');
         $cabang         = $this->request->getVar('cabang');
+        $level          = $this->request->getVar('level');
         $password       = $this->request->getVar('password');
 
         $data_users     = $this->users_model->find($username);
@@ -217,6 +219,7 @@ class Admin extends BaseController
             $data['username']   = $username;
             $data['nama']       = $nama;
             $data['id_cabang']  = $cabang;
+            $data['level']      = $level;
             
             if(!empty($password))
             {

@@ -12,6 +12,7 @@ class UsersSeeder extends Seeder
 			'username' 	=> 'admin',
 			'nama'    	=> 'Admin',
 			'id_cabang' => 1,
+			'level' 	=> 0,
 			'password'  => md5('123')
 		];
 	

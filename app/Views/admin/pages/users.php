@@ -29,6 +29,7 @@
                                 <th>Nama</th>
                                 <th>Username</th>
                                 <th>Cabang</th>
+                                <th>Level</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>                  
@@ -38,6 +39,7 @@
                                 <td><?= $data['nama'] ?></td>
                                 <td><?= $data['username'] ?></td>
                                 <td><?= $data['nama_cabang'] ?></td>
+                                <td><?= $level[$data['level']] ?></td>
                                 <td class="actions">
                                     <button class="btn btn-icon btn-sm btn-success" onclick="edit('<?= $data['username'] ?>')"> <i class="fa fa-edit"></i> </button> 
                                     <button class="btn btn-icon btn-sm btn-danger" onclick="hapus('<?= $data['username'] ?>')"> <i class="fa fa-trash"></i> </button>
@@ -61,7 +63,7 @@
                 <h4 class="modal-title">Users</h4> 
             </div> 
             
-            <form action="<?= site_url('admin/users/save') ?>" method="post" enctype="multipart/form-data">
+            <form id="form_input" action="<?= site_url('admin/users/save') ?>" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
                     <input type="hidden" id="username_old" name="username_old" value="">
                     <div class="row"> 
@@ -96,8 +98,22 @@
                     <div class="row"> 
                         <div class="col-md-12"> 
                             <div class="form-group"> 
+                                <label class="control-label">Level</label> 
+                                <select class="form-control" id="level" name="level" required>
+                                    <option value="">--Pilih Level--</option>           
+                                    <?php foreach ($level as $key => $l): ?>   
+                                    <option value="<?= $key ?>"><?= $l ?></option> 
+                                    <?php endforeach; ?>
+                                </select>    
+                            </div> 
+                        </div> 
+                    </div>
+                    <div class="row"> 
+                        <div class="col-md-12"> 
+                            <div class="form-group"> 
                                 <label class="control-label">Password</label> 
                                 <input type="password" class="form-control" id="password" name="password" placeholder="Password" required> 
+                                <span id="note_pw">*Isi untuk merubah password</span>
                             </div> 
                         </div> 
                     </div>
@@ -123,12 +139,14 @@
     function tambah()
     {
         $('#edit').modal('show');
-        resetValue();
+        $('#form_input').trigger("reset");
+        $('#note_pw').hide();
     }
 
     function edit(username)
     {
         $('#edit').modal('show');
+        $('#note_pw').show();
 
         $.ajax(
         {
@@ -146,6 +164,7 @@
                 $("#username").val(username);
                 $("#nama").val(value.nama);
                 $("#cabang").val(value.id_cabang);
+                $("#level").val(value.level);
             }
         });
     }
@@ -167,6 +186,12 @@
         if($("#cabang").val() == "")
         {
             alert("Harap isi cabang!");
+            return false;
+        }
+
+        if($("#level").val() == "")
+        {
+            alert("Harap isi level!");
             return false;
         }
 
@@ -192,6 +217,7 @@
                 username: $("#username").val(),
                 nama: $("#nama").val(),
                 cabang: $("#cabang").val(),
+                level: $("#level").val(),
                 password: $("#password").val()
             },
             success: function (request)
@@ -211,16 +237,6 @@
         });
         
         return false;
-    }
-
-    function resetValue()
-    {
-        $("#username_old").val("");
-        $("#username").val("");
-        $("#nama").val("");
-        $("#cabang").val("");
-        $("#password").val("");
-        $("#confirm_password").val("");
     }
 
     function hapus(username)

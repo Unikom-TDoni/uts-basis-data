@@ -21,6 +21,10 @@ class Users extends Migration
 				'type'           => 'INT',
 				'constraint'     => 11
 			],
+			'level'       => [
+				'type'           => 'INT',
+				'constraint'     => 11
+			],
 			'password' => [
 				'type'           => 'TEXT',
 				'null'           => true,
