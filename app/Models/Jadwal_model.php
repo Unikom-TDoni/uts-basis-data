@@ -6,7 +6,7 @@ class Jadwal_model extends Model
     protected $table            = "jadwal";
     protected $primaryKey       = "id_jadwal";
     protected $useAutoIncrement = true;
-    protected $allowedFields    = ['id_rute', 'jam_berangkat'];
+    protected $allowedFields    = ['id_rute', 'jam_berangkat', 'is_aktif'];
 
 
     public function getData($id="")
@@ -23,6 +23,15 @@ class Jadwal_model extends Model
         }
 
         return $query->get();
+    }
+
+    public function setAktivasi($id)
+    {
+        $query = $this->set('is_aktif', 'IF(is_aktif=1,0,1)', false)
+                 ->where('id_jadwal', $id)
+                 ->update();
+
+        return $query;
     }
 }
 ?>

@@ -28,14 +28,24 @@
                             <tr>
                                 <th>Rute</th>
                                 <th>Jam Berangkat</th>
+                                <th>Aktifasi</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>                  
                         <tbody>
                             <?php foreach ($jadwal as $data): ?>
-                            <tr class="gradeX">
+                            <?php
+                                $aktifasi       = ($data['is_aktif'])?"AKTIF":"NON-AKTIF"; 
+                                $aktifasi_btn   = ($data['is_aktif'])?"info":"danger";
+                                $row_bg         = ($data['is_aktif'])?"":"background: red;color: white;";
+                            ?>
+
+                            <tr class="gradeX" style="<?= $row_bg ?>">
                                 <td><?= $data['nama_rute'] ?></td>
                                 <td><?= $data['jam_berangkat'] ?></td>
+                                <td>    
+                                    <button class="btn btn-icon btn-sm btn-<?= $aktifasi_btn ?>" onclick="ubahAktifasi(<?= $data['id_jadwal'] ?>)"> <?= $aktifasi ?> </button>
+                                </td>
                                 <td class="actions">
                                     <button class="btn btn-icon btn-sm btn-success" onclick="edit(<?= $data['id_jadwal'] ?>)"> <i class="fa fa-edit"></i> </button> 
                                     <button class="btn btn-icon btn-sm btn-danger" onclick="hapus(<?= $data['id_jadwal'] ?>)"> <i class="fa fa-trash"></i> </button>
@@ -59,7 +69,7 @@
                 <h4 class="modal-title">Jadwal</h4> 
             </div> 
             
-            <form action="<?= site_url('admin/jadwal/save') ?>" method="post" enctype="multipart/form-data">
+            <form id="form_input" action="<?= site_url('admin/jadwal/save') ?>" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
                     <input type="hidden" id="id" name="id"> 
                     <div class="row"> 
@@ -81,6 +91,17 @@
                             </div>
                         </div> 
                     </div>
+                    <div class="row"> 
+                        <div class="col-md-12"> 
+                            <div class="form-group"> 
+                                <label class="control-label">Aktifasi</label>
+                                <select class="form-control" id="is_aktif" name="is_aktif" required>
+                                    <option value="1">Aktif</option>
+                                    <option value="0">Non-Aktif</option>
+                                </select>
+                            </div> 
+                        </div>
+                    </div> 
                 </div>
                 <div class="modal-footer"> 
                     <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Tutup <i class="fa fa-close"></i></button> 
@@ -95,7 +116,7 @@
     function tambah()
     {
         $('#edit').modal('show');
-        resetValue();
+        $('#form_input').trigger('reset');
     }
 
     function edit(id)
@@ -117,15 +138,9 @@
                 $("#id").val(id);
                 $("#rute").val(value.id_rute);
                 $("#jam_berangkat").val(value.jam_berangkat);
+                $("#is_aktif").val(value.is_aktif);
             }
         });
-    }
-
-    function resetValue()
-    {
-        $("#id").val("");
-        $("#rute").val("");
-        $("#jam_berangkat").val("");
     }
 
     function hapus(id)
@@ -138,6 +153,25 @@
         $.ajax(
         {
             url: "<?= site_url('admin/jadwal/delete') ?>",
+            type: 'POST',
+            data: 
+            {
+                id: id
+            },
+            success: function (response)
+            {
+                location.reload();
+            }
+        });
+        
+        return false;
+    }
+    
+    function ubahAktifasi(id)
+    {
+        $.ajax(
+        {
+            url: "<?= site_url('admin/jadwal/aktivasi') ?>",
             type: 'POST',
             data: 
             {

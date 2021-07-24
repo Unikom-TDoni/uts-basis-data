@@ -33,6 +33,10 @@ class Rute extends Migration
 				'type'           => 'INT',
 				'constraint'     => 11
 			],
+			'is_aktif'       => [
+				'type'           => 'INT',
+				'constraint'     => 1
+			],
 		]);
 
 		$this->forge->addKey('id_rute', TRUE);

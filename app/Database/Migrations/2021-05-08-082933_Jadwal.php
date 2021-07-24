@@ -22,6 +22,10 @@ class Jadwal extends Migration
 				'type'           => 'VARCHAR',
 				'constraint'     => 5
 			],
+			'is_aktif'       => [
+				'type'           => 'INT',
+				'constraint'     => 1
+			],
 		]);
 
 		$this->forge->addKey('id_jadwal', TRUE);

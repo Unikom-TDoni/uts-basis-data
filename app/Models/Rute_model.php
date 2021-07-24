@@ -6,10 +6,10 @@ class Rute_model extends Model
     protected $table            = "rute";
     protected $primaryKey       = "id_rute";
     protected $useAutoIncrement = true;
-    protected $allowedFields    = ['id_cabang_asal', 'id_cabang_tujuan', 'harga_tiket', 'jarak_tempuh', 'waktu_tempuh'];
+    protected $allowedFields    = ['id_cabang_asal', 'id_cabang_tujuan', 'harga_tiket', 'jarak_tempuh', 'waktu_tempuh', 'is_aktif'];
 
 
-    public function getData($id="")
+    public function getData($id="", $is_aktif="")
     {
         $query = $this->select('rute.*, CONCAT(c1.nama_cabang," - ",c2.nama_cabang) as nama_rute, c1.nama_cabang as nama_cabang_asal, c2.nama_cabang as nama_cabang_tujuan, k1.nama as kota_asal, k2.nama as kota_tujuan')
                  ->join('cabang as c1', 'c1.id_cabang = rute.id_cabang_asal')
@@ -23,7 +23,21 @@ class Rute_model extends Model
             $query = $query->where('id_rute', $id);
         }
 
+        if(!empty($is_aktif))
+        {
+            $query = $query->where('is_aktif', $is_aktif);
+        }
+
         return $query->get();
+    }
+
+    public function setAktivasi($id)
+    {
+        $query = $this->set('is_aktif', 'IF(is_aktif=1,0,1)', false)
+                 ->where('id_rute', $id)
+                 ->update();
+
+        return $query;
     }
 }
 ?>

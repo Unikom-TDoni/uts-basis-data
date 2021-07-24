@@ -33,12 +33,19 @@
                                 <th>Harga Tiket</th>
                                 <th>Jarak Tempuh</th>
                                 <th>Waktu Tempuh</th>
+                                <th>Aktifasi</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>                  
                         <tbody>
                             <?php foreach ($rute as $data): ?>
-                            <tr class="gradeX">
+                            <?php
+                                $aktifasi       = ($data['is_aktif'])?"AKTIF":"NON-AKTIF"; 
+                                $aktifasi_btn   = ($data['is_aktif'])?"info":"danger";
+                                $row_bg         = ($data['is_aktif'])?"":"background: red;color: white;";
+                            ?>
+
+                            <tr class="gradeX" style="<?= $row_bg ?>">
                                 <td><?= $data['nama_cabang_asal'] ?></td>
                                 <td><?= $data['kota_asal'] ?></td>
                                 <td><?= $data['nama_cabang_tujuan'] ?></td>
@@ -46,6 +53,9 @@
                                 <td><?= "Rp " . number_format($data['harga_tiket']) ?></td>
                                 <td><?= $data['jarak_tempuh'] ?> km</td>
                                 <td><?= $data['waktu_tempuh'] ?> menit</td>
+                                <td>    
+                                    <button class="btn btn-icon btn-sm btn-<?= $aktifasi_btn ?>" onclick="ubahAktifasi(<?= $data['id_rute'] ?>)"> <?= $aktifasi ?> </button>
+                                </td>
                                 <td class="actions" width="10%">
                                     <button class="btn btn-icon btn-sm btn-success" onclick="edit(<?= $data['id_rute'] ?>)"> <i class="fa fa-edit"></i> </button> 
                                     <button class="btn btn-icon btn-sm btn-danger" onclick="hapus(<?= $data['id_rute'] ?>)"> <i class="fa fa-trash"></i> </button>
@@ -69,7 +79,7 @@
                 <h4 class="modal-title">Rute</h4> 
             </div> 
             
-            <form action="<?= site_url('admin/rute/save') ?>" method="post" enctype="multipart/form-data">
+            <form id="form_input" action="<?= site_url('admin/rute/save') ?>" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
                     <input type="hidden" id="id" name="id"> 
                     <div class="row"> 
@@ -114,6 +124,17 @@
                                 <input type="number" class="form-control" id="waktu_tempuh" name="waktu_tempuh" placeholder="Waktu Tempuh" required> 
                             </div>
                         </div> 
+                    </div>
+                    <div class="row"> 
+                        <div class="col-md-12"> 
+                            <div class="form-group"> 
+                                <label class="control-label">Aktifasi</label>
+                                <select class="form-control" id="is_aktif" name="is_aktif" required>
+                                    <option value="1">Aktif</option>
+                                    <option value="0">Non-Aktif</option>
+                                </select>
+                            </div> 
+                        </div>
                     </div> 
                 </div>
                 <div class="modal-footer"> 
@@ -153,7 +174,7 @@
     function tambah()
     {
         $('#edit').modal('show');
-        resetValue();
+        $('#form_input').trigger('reset');
     }
 
     function edit(id)
@@ -179,18 +200,9 @@
                 $("#harga_tiket").val(value.harga_tiket);
                 $("#jarak_tempuh").val(value.jarak_tempuh);
                 $("#waktu_tempuh").val(value.waktu_tempuh);
+                $("#is_aktif").val(value.is_aktif);
             }
         });
-    }
-
-    function resetValue()
-    {
-        $("#id").val("");
-        $("#cabang_asal").val("");
-        $("#cabang_tujuan").val("");
-        $("#harga_tiket").val("");
-        $("#jarak_tempuh").val("");
-        $("#waktu_tempuh").val("");
     }
 
     function hapus(id)
@@ -203,6 +215,25 @@
         $.ajax(
         {
             url: "<?= site_url('admin/rute/delete') ?>",
+            type: 'POST',
+            data: 
+            {
+                id: id
+            },
+            success: function (response)
+            {
+                location.reload();
+            }
+        });
+        
+        return false;
+    }
+
+    function ubahAktifasi(id)
+    {
+        $.ajax(
+        {
+            url: "<?= site_url('admin/rute/aktivasi') ?>",
             type: 'POST',
             data: 
             {

@@ -124,6 +124,7 @@ class Admin extends BaseController
         $data['harga_tiket']       = $this->request->getVar('harga_tiket');
         $data['jarak_tempuh']      = $this->request->getVar('jarak_tempuh');
         $data['waktu_tempuh']      = $this->request->getVar('waktu_tempuh');
+        $data['is_aktif']          = $this->request->getVar('is_aktif');
 
         $this->rute_model->save($data);
 
@@ -138,10 +139,18 @@ class Admin extends BaseController
         return redirect()->to('/admin/rute');
 	}
 
+    public function setAktivasiRute()
+    {
+        $id = $this->request->getVar('id');
+        $this->rute_model->setAktivasi($id);
+
+        return redirect()->to('/admin/rute');
+    }
+
     public function jadwal()
 	{
         $data['page']       = 'jadwal';
-        $data['rute']       = $this->rute_model->getData()->getResultArray();
+        $data['rute']       = $this->rute_model->getData('', 1)->getResultArray();
         $data['jadwal']     = $this->jadwal_model->getData()->getResultArray();
 
         return view('admin/pages/jadwal', $data);
@@ -166,6 +175,7 @@ class Admin extends BaseController
 
         $data['id_rute']        = $this->request->getVar('rute');
         $data['jam_berangkat']  = $this->request->getVar('jam_berangkat');
+        $data['is_aktif']       = $this->request->getVar('is_aktif');
 
         $this->jadwal_model->save($data);
 
@@ -179,6 +189,14 @@ class Admin extends BaseController
 
         return redirect()->to('/admin/jadwal');
 	}
+    
+    public function setAktivasiJadwal()
+    {
+        $id = $this->request->getVar('id');
+        $this->jadwal_model->setAktivasi($id);
+
+        return redirect()->to('/admin/jadwal');
+    }
 
     public function users()
 	{
