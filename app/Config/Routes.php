@@ -55,6 +55,7 @@ $routes->group('admin', ['filter' => 'login'], function($routes)
 		$routes->add('data', 'Admin::getRute');
 		$routes->add('save', 'Admin::saveRute');
 		$routes->add('delete', 'Admin::deleteRute');
+		$routes->add('aktivasi', 'Admin::setAktivasiRute');
 	});
 
 	$routes->group('jadwal', function($routes)
@@ -63,6 +64,7 @@ $routes->group('admin', ['filter' => 'login'], function($routes)
 		$routes->add('data', 'Admin::getJadwal');
 		$routes->add('save', 'Admin::saveJadwal');
 		$routes->add('delete', 'Admin::deleteJadwal');
+		$routes->add('aktivasi', 'Admin::setAktivasiJadwal');
 	});
 
 	$routes->group('users', function($routes)
