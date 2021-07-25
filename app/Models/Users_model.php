@@ -19,7 +19,7 @@ class Users_model extends Model
                  ->join('cabang', 'cabang.id_cabang = users.id_cabang')
                  ->orderBy('nama');
 
-        if(!empty($id))
+        if(!empty($username))
         {
             $query = $query->where('username', $username);
         }

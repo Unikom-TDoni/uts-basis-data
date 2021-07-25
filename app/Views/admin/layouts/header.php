@@ -108,7 +108,7 @@
                                 <a href="#" class="dropdown-toggle"><?= session()->get('nama'); ?></a>                                
                             </div>
 
-                            <p class="text-muted m-0">Administrator</p>
+                            <p class="text-muted m-0"><?= session()->get('nama_level'); ?></p>
                         </div>
                     </div>
                     <!--- Divider -->
@@ -117,18 +117,46 @@
                             <li>
                                 <a href="<?= site_url('admin'); ?>" class="waves-effect <?= ($page=='dashboard')?'active':''; ?>"><i class="md md-dashboard"></i> Dashboard</a>
                             </li>
-                            <li>
-                                <a href="<?= site_url('admin/cabang'); ?>" class="waves-effect  <?= ($page=='cabang')?'active':''; ?>"><i class="md md-home"></i> Cabang</a>
-                            </li>
-                            <li>
-                                <a href="<?= site_url('admin/rute'); ?>" class="waves-effect  <?= ($page=='rute')?'active':''; ?>"><i class="md md-view-list"></i> Rute</a>
-                            </li>
-                            <li>
-                                <a href="<?= site_url('admin/jadwal'); ?>" class="waves-effect  <?= ($page=='jadwal')?'active':''; ?>"><i class="md md-event"></i> Jadwal</a>
-                            </li>
-                            <li>
-                                <a href="<?= site_url('admin/users'); ?>" class="waves-effect  <?= ($page=='users')?'active':''; ?>"><i class="fa fa-users"></i> Users</a>
-                            </li>
+                            
+                            <?php if(session()->get('level') == 0 || session()->get('level') == 2): ?>
+                                <li>
+                                    <a href="<?= site_url('admin/cabang'); ?>" class="waves-effect  <?= ($page=='cabang')?'active':''; ?>"><i class="md md-home"></i> Cabang</a>
+                                </li>
+                                <li>
+                                    <a href="<?= site_url('admin/rute'); ?>" class="waves-effect  <?= ($page=='rute')?'active':''; ?>"><i class="md md-view-list"></i> Rute</a>
+                                </li>
+                                <li>
+                                    <a href="<?= site_url('admin/jadwal'); ?>" class="waves-effect  <?= ($page=='jadwal')?'active':''; ?>"><i class="md md-event"></i> Jadwal</a>
+                                </li>
+                            <?php endif; ?>
+
+                            <?php if(session()->get('level') == 0 || session()->get('level') == 1): ?>
+                                <li>
+                                    <a href="<?= site_url('admin/mobil'); ?>" class="waves-effect  <?= ($page=='mobil')?'active':''; ?>"><i class="fa fa-car"></i> Mobil</a>
+                                </li>
+                                <li>
+                                    <a href="<?= site_url('admin/sopir'); ?>" class="waves-effect  <?= ($page=='sopir')?'active':''; ?>"><i class="fa fa-user-secret"></i> Sopir</a>
+                                </li>
+                            <?php endif; ?>
+                            
+                            <?php if(session()->get('level') == 0 || session()->get('level') == 3): ?>
+                                <li>
+                                    <a href="<?= site_url('admin/pelanggan'); ?>" class="waves-effect  <?= ($page=='pelanggan')?'active':''; ?>"><i class="fa fa-user"></i> Pelanggan</a>
+                                </li>
+                                <li class="has_sub">
+                                    <a href="#" class="waves-effect <?= ($page=='list_transaksi' || $page=='add_transaksi')?'active':''; ?>"><i class="fa fa-cart-plus"></i><span> Transaksi </span><span class="pull-right"><i class="md md-add"></i></span></a>
+                                    <ul class="list-unstyled">
+                                        <li class="<?= ($page=='list_transaksi')?'active':''; ?>"><a href="<?= site_url('admin/transaksi/list'); ?>">List Transaksi</a></li>
+                                        <li class="<?= ($page=='add_transaksi')?'active':''; ?>"><a href="<?= site_url('admin/transaksi/add'); ?>">Tambah Transaksi</a></li>
+                                    </ul>
+                                </li>
+                            <?php endif; ?>
+
+                            <?php if(session()->get('level') == 0): ?>
+                                <li>
+                                    <a href="<?= site_url('admin/users'); ?>" class="waves-effect  <?= ($page=='users')?'active':''; ?>"><i class="fa fa-users"></i> Users</a>
+                                </li>
+                            <?php endif; ?>
                         </ul>
                         <div class="clearfix"></div>
                     </div>

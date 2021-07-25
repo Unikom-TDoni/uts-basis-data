@@ -139,6 +139,7 @@
     function tambah()
     {
         $('#edit').modal('show');
+        $("#username_old").val("");
         $('#form_input').trigger("reset");
         $('#note_pw').hide();
     }

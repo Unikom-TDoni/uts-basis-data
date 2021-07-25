@@ -65,7 +65,7 @@
                 <h4 class="modal-title">Cabang</h4> 
             </div> 
             
-            <form action="<?= site_url('admin/cabang/save') ?>" method="post" enctype="multipart/form-data">
+            <form id="form_input" action="<?= site_url('admin/cabang/save') ?>" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
                     <input type="hidden" id="id" name="id"> 
                     <div class="row"> 
@@ -151,7 +151,7 @@
     function tambah()
     {
         $('#edit').modal('show');
-        resetValue();
+        $('#form_input').trigger('reset');
     }
 
     function edit(id_cabang)
@@ -179,16 +179,6 @@
                 $("#alamat").val(value.alamat);
             }
         });
-    }
-
-    function resetValue()
-    {
-        $("#id").val("");
-        $("#nama").val("");
-        $("#telp").val("");
-        $("#provinsi").val("");
-        $("#kota").val("");
-        $("#alamat").val("");
     }
 
     function hapus(id_cabang)

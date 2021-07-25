@@ -42,38 +42,80 @@ $routes->group('admin', ['filter' => 'login'], function($routes)
 	$routes->group('cabang', function($routes)
 	{
 		$routes->add('/', 'Admin::cabang');
-		$routes->add('getKota', 'Admin::getListKotaByProvinsi');
-		$routes->add('getListCabang', 'Admin::getListCabang');
-		$routes->add('data', 'Admin::dataCabang');
-		$routes->add('save', 'Admin::saveCabang');
-		$routes->add('delete', 'Admin::deleteCabang');
+		$routes->post('getKota', 'Admin::getListKotaByProvinsi');
+		$routes->post('getListCabang', 'Admin::getListCabang');
+		$routes->post('data', 'Admin::dataCabang');
+		$routes->post('save', 'Admin::saveCabang');
+		$routes->post('delete', 'Admin::deleteCabang');
 	});
 
 	$routes->group('rute', function($routes)
 	{
 		$routes->add('/', 'Admin::rute');
-		$routes->add('data', 'Admin::getRute');
-		$routes->add('save', 'Admin::saveRute');
-		$routes->add('delete', 'Admin::deleteRute');
-		$routes->add('aktivasi', 'Admin::setAktivasiRute');
+		$routes->post('data', 'Admin::getRute');
+		$routes->post('save', 'Admin::saveRute');
+		$routes->post('delete', 'Admin::deleteRute');
+		$routes->post('aktivasi', 'Admin::setAktivasiRute');
 	});
 
 	$routes->group('jadwal', function($routes)
 	{
 		$routes->add('/', 'Admin::jadwal');
-		$routes->add('data', 'Admin::getJadwal');
-		$routes->add('save', 'Admin::saveJadwal');
-		$routes->add('delete', 'Admin::deleteJadwal');
-		$routes->add('aktivasi', 'Admin::setAktivasiJadwal');
+		$routes->post('data', 'Admin::getJadwal');
+		$routes->post('save', 'Admin::saveJadwal');
+		$routes->post('delete', 'Admin::deleteJadwal');
+		$routes->post('aktivasi', 'Admin::setAktivasiJadwal');
+	});
+
+	$routes->group('mobil', function($routes)
+	{
+		$routes->add('/', 'Admin::mobil');
+		$routes->post('data', 'Admin::getMobil');
+		$routes->post('save', 'Admin::saveMobil');
+		$routes->post('delete', 'Admin::deleteMobil');
+		$routes->post('aktivasi', 'Admin::setAktivasiMobil');
+	});
+
+	$routes->group('sopir', function($routes)
+	{
+		$routes->add('/', 'Admin::sopir');
+		$routes->post('data', 'Admin::getSopir');
+		$routes->post('save', 'Admin::saveSopir');
+		$routes->post('delete', 'Admin::deleteSopir');
+		$routes->post('aktivasi', 'Admin::setAktivasiSopir');
+	});
+	
+	$routes->group('pelanggan', function($routes)
+	{
+		$routes->add('/', 'Admin::pelanggan');
+		$routes->add('data', 'Admin::getPelanggan');
+	});
+
+	$routes->group('transaksi', function($routes)
+	{
+		$routes->add('list', 'Admin::listTransaksi');
+		$routes->add('add', 'Admin::addTransaksi');
+		$routes->add('data', 'Admin::getTransaksi');
+		$routes->add('save', 'Admin::saveTransaksi');
+		$routes->add('print', 'Admin::printTransaksi');
+		$routes->add('status', 'Admin::statusTransaksi');
+		$routes->post('getCabangTujuan', 'Admin::getCabangTujuan');
+		$routes->post('getJadwal', 'Admin::getListJadwal');
+		$routes->post('getTransaksi', 'Admin::getListTransaksi');
+	});
+
+	$routes->group('penjadwalan', function($routes)
+	{
+		$routes->add('save', 'Admin::savePenjadwalan');
 	});
 
 	$routes->group('users', function($routes)
 	{
 		$routes->add('/', 'Admin::users');
-		$routes->add('data', 'Admin::getUsers');
-		$routes->add('save', 'Admin::saveUsers');
-		$routes->add('delete', 'Admin::deleteUsers');
-		$routes->add('password', 'Admin::ubahPasswordUsers');
+		$routes->post('data', 'Admin::getUsers');
+		$routes->post('save', 'Admin::saveUsers');
+		$routes->post('delete', 'Admin::deleteUsers');
+		$routes->post('password', 'Admin::ubahPasswordUsers');
 	});
 });
 

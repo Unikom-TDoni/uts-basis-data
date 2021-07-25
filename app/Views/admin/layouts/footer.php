@@ -125,7 +125,7 @@
         <script type="text/javascript">
             $(document).ready(function() {
                 $('#datatable').dataTable();
-            } );
+            });
         </script>
 
         <script src="<?= base_url('assets/admin')?>/assets/tagsinput/jquery.tagsinput.min.js"></script>
@@ -238,7 +238,7 @@
             });
         </script>
 
-         <script type="text/javascript" src="<?= base_url('assets/admin')?>/assets/gallery/isotope.js"></script>
+        <script type="text/javascript" src="<?= base_url('assets/admin')?>/assets/gallery/isotope.js"></script>
         <script type="text/javascript" src="<?= base_url('assets/admin')?>/assets/magnific-popup/magnific-popup.js"></script> 
           
         <script type="text/javascript">

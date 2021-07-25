@@ -8,7 +8,6 @@ class Cabang_model extends Model
     protected $useAutoIncrement = true;
     protected $allowedFields    = ['nama_cabang', 'id_kota', 'telp', 'alamat'];
 
-
     public function getData($id="", $exclude=false)
     {
         $query = $this->select('cabang.*, kota.*, kota.nama AS nama_kota, provinsi.nama AS nama_provinsi')

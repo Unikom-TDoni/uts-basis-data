@@ -14,5 +14,7 @@ class DatabaseSeeder extends Seeder
 		$this->call('CabangSeeder');
 		$this->call('RuteSeeder');
 		$this->call('JadwalSeeder');
+		$this->call('MobilSeeder');
+		$this->call('SopirSeeder');
 	}
 }
