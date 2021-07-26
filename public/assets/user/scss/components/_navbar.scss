@@ -1,0 +1,33 @@
+header.header{
+    top: 0;
+    left: 0;
+    min-height: 5.6rem;
+    background: #fff;
+    position: sticky;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    .navbar-logo{
+        height: 40px;
+        img{
+            height: 40px;
+        }
+    }
+    .navbar{
+        .navbar-collapse{
+            flex-direction: row-reverse;
+            .navbar-nav{
+                .nav-item{
+                    .nav-link{
+                        color: #646670;
+                        margin-left: 3.2rem;
+                        &.active{
+                            color: #bb3535;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
