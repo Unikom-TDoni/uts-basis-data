@@ -58,8 +58,12 @@
             <div style="width:48%;float:left;text-align:left;font-size:12px">Harga Tiket:</div>
             <div style="width:48%;float:left;text-align:right;font-size:12px"><?= "Rp " . number_format($harga_tiket, 0, ',', '.') ?></div>
             <br><br>
+            
+            <?php if(!$is_lunas): ?>
             <span style="font-size: 18px">-- BELUM LUNAS --</span><br>
             <br>
+            <?php endif ?>
+            
             <span style="font-size: 13px"><?= $waktu_cetak ?></span><br>
             <span style="font-size: 14px">Pencetak:<?= $petugas_cetak ?></span>
         </div>

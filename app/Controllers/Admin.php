@@ -35,11 +35,30 @@ class Admin extends BaseController
     
 	public function index()
 	{
-        $data['page']           = 'dashboard';
-        $data['jumlah_cabang']  = count($this->cabang_model->findAll());
-        $data['jumlah_rute']    = count($this->rute_model->findAll());
-        $data['jumlah_jadwal']  = count($this->jadwal_model->findAll());
-        $data['jumlah_users']   = count($this->users_model->findAll());
+        $data['page']               = 'dashboard';
+        $data['jumlah_cabang']      = count($this->cabang_model->findAll());
+        $data['jumlah_rute']        = count($this->rute_model->findAll());
+        $data['jumlah_jadwal']      = count($this->jadwal_model->findAll());
+        $data['jumlah_users']       = count($this->users_model->findAll());
+        $data['jumlah_mobil']       = count($this->mobil_model->findAll());
+        $data['jumlah_sopir']       = count($this->sopir_model->findAll());
+        $data['jumlah_pelanggan']   = count($this->pelanggan_model->findAll());
+        $data['transaksi']          = $this->transaksi_model->getListData(date('Y-m-d'), date('Y-m-d'), 0)->getResultArray();
+        $data['jumlah_transaksi']   = count($data['transaksi']);
+        $data['level']              = session()->get('level');
+        
+        if($data['level'] == 0)
+        {
+            $data['width_lg'] = 3;
+        }
+        elseif($data['level'] == 1 || $data['level'] == 3)
+        {
+            $data['width_lg'] = 6;
+        }
+        else
+        {
+            $data['width_lg'] = 4;
+        }
 
         return view('admin/pages/dashboard', $data);
 	}
@@ -373,7 +392,7 @@ class Admin extends BaseController
     public function getTransaksi()
 	{
         $nomor_transaksi    = $this->request->getVar('nomor_transaksi');
-        $arr_transaksi               = $this->transaksi_model->getData($nomor_transaksi)->getRowArray();
+        $arr_transaksi      = $this->transaksi_model->getData($nomor_transaksi)->getRowArray();
 
         $data                   = $arr_transaksi;
         $data['harga_tiket']    = 'Rp ' . number_format($arr_transaksi['harga_tiket'], 0, ",", ".");

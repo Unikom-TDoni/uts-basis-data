@@ -58,8 +58,7 @@
         
     </head>
 
-    <body class="fixed-left">
-        
+    <body class="fixed-left">    
         <!-- Begin page -->
         <div id="wrapper">
         
