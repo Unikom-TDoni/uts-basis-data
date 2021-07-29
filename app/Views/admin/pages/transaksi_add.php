@@ -86,7 +86,6 @@
                                         <td id="ket_kursi_tersedia"></td>
                                         
                                         <td colspan="2" style="text-align: center;">
-                                            <button class="btn btn-sm btn-inverse" data-toggle="modal" data-target="#modal_penjadwalan"> Atur Penjadwalan </button> 
                                         </td>
                                     </tr>
                                 </table>
@@ -123,52 +122,6 @@
         </div>
     </div>
 </div>
-
-<div id="modal_penjadwalan" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog"> 
-        <div class="modal-content"> 
-            <div class="modal-header"> 
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button> 
-                <h4 class="modal-title">Atur Penjadwalan</h4> 
-            </div> 
-            
-            <form id="form_input_penjadwalan" method="post" enctype="multipart/form-data">
-                <div class="modal-body">
-                    <div class="row"> 
-                        <div class="col-md-12"> 
-                            <div class="form-group"> 
-                                <label class="control-label">Mobil</label> 
-                                <select class="form-control" id="id_mobil" name="mobil" required>
-                                    <option value="">--Pilih Mobil--</option>           
-                                    <?php foreach ($mobil as $m): ?>
-                                    <option value="<?= $m['id_mobil']?>"><?= $m['nomor_plat'] . " ($m[merk])"?></option> 
-                                    <?php endforeach; ?>
-                                </select>    
-                            </div> 
-                        </div> 
-                    </div>
-                    <div class="row"> 
-                        <div class="col-md-12"> 
-                            <div class="form-group"> 
-                                <label class="control-label">Sopir</label> 
-                                <select class="form-control" id="id_sopir" name="id_sopir" required>
-                                    <option value="">--Pilih Sopir--</option>           
-                                    <?php foreach ($sopir as $s): ?>   
-                                    <option value="<?= $s['id_sopir'] ?>"><?= $s['nama'] ?></option> 
-                                    <?php endforeach; ?>
-                                </select>    
-                            </div> 
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer"> 
-                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Tutup <i class="fa fa-close"></i></button> 
-                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="simpanPenjadwalan()">Simpan <i class="fa fa-save"></i></button> 
-                </div> 
-            </form>
-        </div> 
-    </div>
-</div><!-- /.modal -->
 
 <div id="modal_transaksi" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog"> 
@@ -448,75 +401,6 @@
                     data    = [value.nomor_kursi, value.nomor_transaksi, value.telp, value.nama, status, detail];
                     $('#datatable').dataTable().fnAddData(data);
                 });
-            }
-        });
-    }
-
-    function showDialogPenjadwalan()
-    {
-        $('#modal_penjadwalan').modal('show');
-
-        $.ajax(
-        {
-            url:"<?= site_url('admin/transaksi/getPenjadwalan') ?>",
-            type: "POST",
-            data: {
-                tgl_berangkat: $("#tgl_berangkat").val(),
-                id_jadwal: $("#jadwal").val()
-            },
-            dataType : 'json',
-            success: function(value)
-            {   
-                $("#mobil").val(value.id_mobil);
-                $("#sopir").val(value.id_sopir);
-            }
-        });
-    }
-
-    function simpanPenjadwalan()
-    {
-        if($("#id_mobil").val() == "")
-        {
-            alert("Harap isi data mobil!");
-            return false;
-        }
-        
-        if($("#id_sopir").val() == "")
-        {
-            alert("Harap isi data sopir!");
-            return false;
-        }
-
-        $.ajax(
-        {
-            url:"<?= site_url('admin/penjadwalan/save') ?>",
-            type: "POST",
-            data: {
-                tgl_berangkat: $("#tgl_berangkat").val(),
-                id_jadwal: $("#jadwal").val(),
-                id_mobil: $("#id_mobil").val(),
-                id_sopir: $("#id_sopir").val()
-            },
-            dataType : 'json',
-            success: function(result)
-            {
-                if(result.status != "OK")
-                {
-                    alert(result.message);
-                    return false;
-                }
-                else
-                {
-                    $('#modal_penjadwalan').modal('hide');
-                    
-                    swal({
-                        title: "Berhasil!",
-                        text: result.message,
-                        type: "success"
-                    }, function() {
-                        getListTransaksi();
-                    });
-                }
             }
         });
     }

@@ -228,6 +228,48 @@ class Admin extends BaseController
         return redirect()->to('/admin/jadwal');
     }
     
+    public function penjadwalan()
+	{
+        $data['page']           = 'penjadwalan';
+        $data['tgl_berangkat']  = !empty($this->request->getVar('tgl_berangkat'))?$this->request->getVar('tgl_berangkat'):date('Y-m-d');
+        $data['cabang_asal']    = !empty($this->request->getVar('cabang_asal'))?$this->request->getVar('cabang_asal'):"";
+        $data['rute']           = !empty($this->request->getVar('rute'))?$this->request->getVar('rute'):"";
+        $data['display_jadwal'] = !empty($data['rute'])?"block":"none";
+        $data['cabang']         = $this->cabang_model->orderBy('nama_cabang')->findAll();
+        $data['mobil']          = $this->mobil_model->where('is_aktif', 1)->findAll();
+        $data['sopir']          = $this->sopir_model->where('is_aktif', 1)->orderBy('nama')->findAll();
+        $data['jadwal']         = $this->jadwal_model->getListJadwalByRute($data['tgl_berangkat'], $data['rute'])->getResultArray();
+
+        return view('admin/pages/penjadwalan', $data);
+	}
+    
+    public function savePenjadwalan()
+	{
+        $tgl_berangkat  = $this->request->getVar('tgl_berangkat');
+        $id_jadwal      = $this->request->getVar('id_jadwal');
+        $id_mobil       = $this->request->getVar('id_mobil');
+        $id_sopir       = $this->request->getVar('id_sopir');
+
+        $arr_penjadwalan = $this->penjadwalan_model->getData($tgl_berangkat, $id_jadwal)->getRowArray();
+
+        if(isset($arr_penjadwalan))
+        {
+            $data['id_penjadwalan'] = $arr_penjadwalan['id_penjadwalan'];
+        }
+
+        $data['tgl_berangkat']  = $tgl_berangkat;
+        $data['id_jadwal']      = $id_jadwal;
+        $data['id_mobil']       = $id_mobil;
+        $data['id_sopir']       = $id_sopir;
+
+        $this->penjadwalan_model->save($data);
+
+        $ret['status']  = "OK";
+        $ret['message'] = "Penjadwalan berhasil disimpan!";
+
+        echo json_encode($ret);
+	}
+
     public function mobil()
 	{
         $data['page']   = 'mobil';
@@ -383,8 +425,6 @@ class Admin extends BaseController
         $data['rute']           = !empty($this->request->getVar('rute'))?$this->request->getVar('rute'):"";
         $data['jadwal']         = !empty($this->request->getVar('jadwal'))?$this->request->getVar('jadwal'):"";
         $data['cabang']         = $this->cabang_model->orderBy('nama_cabang')->findAll();
-        $data['mobil']          = $this->mobil_model->where('is_aktif', 1)->findAll();
-        $data['sopir']          = $this->sopir_model->where('is_aktif', 1)->findAll();
         
         return view('admin/pages/transaksi_add', $data);
 	}
@@ -520,33 +560,6 @@ class Admin extends BaseController
         
         echo json_encode($data);
     }
-
-    public function savePenjadwalan()
-	{
-        $tgl_berangkat  = $this->request->getVar('tgl_berangkat');
-        $id_jadwal      = $this->request->getVar('id_jadwal');
-        $id_mobil       = $this->request->getVar('id_mobil');
-        $id_sopir       = $this->request->getVar('id_sopir');
-
-        $arr_penjadwalan = $this->penjadwalan_model->getData($tgl_berangkat, $id_jadwal)->getRowArray();
-
-        if(isset($arr_penjadwalan))
-        {
-            $data['id_penjadwalan'] = $arr_penjadwalan['id_penjadwalan'];
-        }
-
-        $data['tgl_berangkat']  = $tgl_berangkat;
-        $data['id_jadwal']      = $id_jadwal;
-        $data['id_mobil']       = $id_mobil;
-        $data['id_sopir']       = $id_sopir;
-
-        $this->penjadwalan_model->save($data);
-
-        $ret['status']  = "OK";
-        $ret['message'] = "Penjadwalan berhasil disimpan!";
-
-        echo json_encode($ret);
-	}
 
     public function users()
 	{
