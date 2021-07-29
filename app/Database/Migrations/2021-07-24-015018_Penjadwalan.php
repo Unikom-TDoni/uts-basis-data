@@ -19,22 +19,25 @@ class Penjadwalan extends Migration
 			],
 			'id_jadwal'       => [
 				'type'           => 'INT',
-				'constraint'     => 11
+				'constraint'     => 11,
+				'null'           => true,
 			],
 			'id_mobil'       => [
 				'type'           => 'INT',
-				'constraint'     => 11
+				'constraint'     => 11,
+				'null'           => true,
 			],
 			'id_sopir'       => [
 				'type'           => 'INT',
-				'constraint'     => 11
+				'constraint'     => 11,
+				'null'           => true,
 			]
 		]);
 		
 		$this->forge->addKey('id_penjadwalan', TRUE);
-		$this->forge->addForeignKey('id_jadwal','jadwal','id_jadwal');
-		$this->forge->addForeignKey('id_mobil','mobil','id_mobil');
-		$this->forge->addForeignKey('id_sopir','sopir','id_sopir');
+		$this->forge->addForeignKey('id_jadwal','jadwal','id_jadwal','CASCADE','SET NULL');
+		$this->forge->addForeignKey('id_mobil','mobil','id_mobil','CASCADE','SET NULL');
+		$this->forge->addForeignKey('id_sopir','sopir','id_sopir','CASCADE','SET NULL');
 		$this->forge->createTable('penjadwalan', TRUE);
 	}
 

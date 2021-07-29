@@ -16,11 +16,13 @@ class Rute extends Migration
 			],
 			'id_cabang_asal'       => [
 				'type'           => 'INT',
-				'constraint'     => 11
+				'constraint'     => 11,
+				'null'           => true,
 			],
 			'id_cabang_tujuan'       => [
 				'type'           => 'INT',
-				'constraint'     => 11
+				'constraint'     => 11,
+				'null'           => true,
 			],
 			'harga_tiket'       => [
 				'type'           => 'DOUBLE'
@@ -40,8 +42,8 @@ class Rute extends Migration
 		]);
 
 		$this->forge->addKey('id_rute', TRUE);
-		$this->forge->addForeignKey('id_cabang_asal','cabang','id_cabang');
-		$this->forge->addForeignKey('id_cabang_tujuan','cabang','id_cabang');
+		$this->forge->addForeignKey('id_cabang_asal','cabang','id_cabang','CASCADE','SET NULL');
+		$this->forge->addForeignKey('id_cabang_tujuan','cabang','id_cabang','CASCADE','SET NULL');
 		$this->forge->createTable('rute', TRUE);
 	}
 

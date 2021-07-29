@@ -8,7 +8,6 @@ class DatabaseSeeder extends Seeder
 {
 	public function run()
 	{
-        $this->call('UsersSeeder');
         $this->call('ProvinsiSeeder');
 		$this->call('KotaSeeder');
 		$this->call('CabangSeeder');
@@ -16,5 +15,6 @@ class DatabaseSeeder extends Seeder
 		$this->call('JadwalSeeder');
 		$this->call('MobilSeeder');
 		$this->call('SopirSeeder');
+        $this->call('UsersSeeder');
 	}
 }

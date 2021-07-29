@@ -19,7 +19,8 @@ class Users extends Migration
 			],
 			'id_cabang'       => [
 				'type'           => 'INT',
-				'constraint'     => 11
+				'constraint'     => 11,
+				'null'           => true,
 			],
 			'level'       => [
 				'type'           => 'INT',
@@ -32,6 +33,7 @@ class Users extends Migration
 		]);
 
 		$this->forge->addKey('username', TRUE);
+		$this->forge->addForeignKey('id_cabang','cabang','id_cabang','CASCADE','SET NULL');
 		$this->forge->createTable('users', TRUE);
 	}
 
