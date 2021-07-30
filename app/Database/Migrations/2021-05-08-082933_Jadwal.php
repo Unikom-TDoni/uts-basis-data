@@ -16,8 +16,7 @@ class Jadwal extends Migration
 			],
 			'id_rute'       => [
 				'type'           => 'INT',
-				'constraint'     => 11,
-				'null'           => true,
+				'constraint'     => 11
 			],
 			'jam_berangkat'       => [
 				'type'           => 'VARCHAR',
@@ -30,7 +29,7 @@ class Jadwal extends Migration
 		]);
 
 		$this->forge->addKey('id_jadwal', TRUE);
-		$this->forge->addForeignKey('id_rute','rute','id_rute','CASCADE','SET NULL');
+		$this->forge->addForeignKey('id_rute','rute','id_rute','CASCADE','CASCADE');
 		$this->forge->createTable('jadwal', TRUE);
 	}
 

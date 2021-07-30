@@ -18,13 +18,11 @@ class Transaksi extends Migration
 			],
 			'id_jadwal'       => [
 				'type'           => 'INT',
-				'constraint'     => 11,
-				'null'           => true,
+				'constraint'     => 11
 			],
 			'telp'       => [
 				'type'           => 'VARCHAR',
-				'constraint'     => 20,
-				'null'           => true,
+				'constraint'     => 20
 			],
 			'nomor_kursi'       => [
 				'type'           => 'INT',
@@ -49,8 +47,8 @@ class Transaksi extends Migration
 		]);
 		
 		$this->forge->addKey('nomor_transaksi', TRUE);
-		$this->forge->addForeignKey('id_jadwal','jadwal','id_jadwal','CASCADE','SET NULL');
-		$this->forge->addForeignKey('telp','pelanggan','telp','CASCADE','SET NULL');
+		$this->forge->addForeignKey('id_jadwal','jadwal','id_jadwal','CASCADE','CASCADE');
+		$this->forge->addForeignKey('telp','pelanggan','telp','CASCADE','CASCADE');
 		$this->forge->createTable('transaksi', TRUE);
 	}
 
