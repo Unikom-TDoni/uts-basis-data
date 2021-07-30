@@ -12,9 +12,9 @@ class Jadwal_model extends Model
     public function getData($id="")
     {
         $query = $this->select('jadwal.*, CONCAT(c1.nama_cabang," - ",c2.nama_cabang) as nama_rute, rute.harga_tiket')
-                 ->join('rute', 'rute.id_rute = jadwal.id_rute')
-                 ->join('cabang as c1', 'c1.id_cabang = rute.id_cabang_asal')
-                 ->join('cabang as c2', 'c2.id_cabang = rute.id_cabang_tujuan')
+                 ->join('rute', 'rute.id_rute = jadwal.id_rute', 'left')
+                 ->join('cabang as c1', 'c1.id_cabang = rute.id_cabang_asal', 'left')
+                 ->join('cabang as c2', 'c2.id_cabang = rute.id_cabang_tujuan', 'left')
                  ->orderBy('nama_rute, jam_berangkat');
 
         if(!empty($id))
@@ -36,12 +36,26 @@ class Jadwal_model extends Model
 
     public function getListJadwalByRute($tgl_berangkat, $id_rute)
     {
-        $query = $this->select('jadwal.*, COUNT(transaksi.nomor_transaksi) as kursi_terisi, mobil.kapasitas')
+        $query = $this->select('
+                    jadwal.*,
+                    CONCAT(c1.nama_cabang," - ",c2.nama_cabang) as nama_rute,
+                    COUNT(DISTINCT transaksi.nomor_transaksi) as kursi_terisi, 
+                    mobil.kapasitas,
+                    penjadwalan.id_mobil,
+                    IF(penjadwalan.id_mobil!="", CONCAT(mobil.nomor_plat, " (", mobil.merk, ")"), "") as mobil,
+                    penjadwalan.id_sopir,
+                    IF(penjadwalan.id_sopir!="", sopir.nama, "") as nama_sopir
+                ')
+                ->join('rute', 'rute.id_rute = jadwal.id_rute', 'left')
+                ->join('cabang as c1', 'c1.id_cabang = rute.id_cabang_asal', 'left')
+                ->join('cabang as c2', 'c2.id_cabang = rute.id_cabang_tujuan', 'left')
                 ->join('transaksi', 'transaksi.tgl_berangkat = \''.$tgl_berangkat.'\' AND transaksi.id_jadwal = jadwal.id_jadwal', 'left')
                 ->join('penjadwalan', 'penjadwalan.tgl_berangkat = \''.$tgl_berangkat.'\' AND penjadwalan.id_jadwal = jadwal.id_jadwal', 'left')
                 ->join('mobil', 'mobil.id_mobil = penjadwalan.id_mobil', 'left')
+                ->join('sopir', 'sopir.id_sopir = penjadwalan.id_sopir', 'left')
                 ->where('jadwal.id_rute', $id_rute)
                 ->where('jadwal.is_aktif', 1)
+                ->groupBy('jadwal.id_jadwal')
                 ->orderBy('jadwal.jam_berangkat');
 
         return $query->get();

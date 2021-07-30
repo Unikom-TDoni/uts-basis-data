@@ -29,7 +29,7 @@ class Jadwal extends Migration
 		]);
 
 		$this->forge->addKey('id_jadwal', TRUE);
-		$this->forge->addForeignKey('id_rute','rute','id_rute');
+		$this->forge->addForeignKey('id_rute','rute','id_rute','CASCADE','CASCADE');
 		$this->forge->createTable('jadwal', TRUE);
 	}
 

@@ -127,6 +127,9 @@
                                 <li>
                                     <a href="<?= site_url('admin/jadwal'); ?>" class="waves-effect  <?= ($page=='jadwal')?'active':''; ?>"><i class="md md-event"></i> Jadwal</a>
                                 </li>
+                                <li>
+                                    <a href="<?= site_url('admin/penjadwalan'); ?>" class="waves-effect  <?= ($page=='penjadwalan')?'active':''; ?>"><i class="md md-alarm"></i> Penjadwalan</a>
+                                </li>
                             <?php endif; ?>
 
                             <?php if(session()->get('level') == 0 || session()->get('level') == 1): ?>

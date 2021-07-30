@@ -47,8 +47,8 @@ class Transaksi extends Migration
 		]);
 		
 		$this->forge->addKey('nomor_transaksi', TRUE);
-		$this->forge->addForeignKey('id_jadwal','jadwal','id_jadwal');
-		$this->forge->addForeignKey('telp','pelanggan','telp');
+		$this->forge->addForeignKey('id_jadwal','jadwal','id_jadwal','CASCADE','CASCADE');
+		$this->forge->addForeignKey('telp','pelanggan','telp','CASCADE','CASCADE');
 		$this->forge->createTable('transaksi', TRUE);
 	}
 

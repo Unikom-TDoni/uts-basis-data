@@ -67,6 +67,12 @@ $routes->group('admin', ['filter' => 'login'], function($routes)
 		$routes->post('aktivasi', 'Admin::setAktivasiJadwal');
 	});
 
+	$routes->group('penjadwalan', function($routes)
+	{
+		$routes->add('/', 'Admin::penjadwalan');
+		$routes->post('save', 'Admin::savePenjadwalan');
+	});
+
 	$routes->group('mobil', function($routes)
 	{
 		$routes->add('/', 'Admin::mobil');
@@ -88,25 +94,20 @@ $routes->group('admin', ['filter' => 'login'], function($routes)
 	$routes->group('pelanggan', function($routes)
 	{
 		$routes->add('/', 'Admin::pelanggan');
-		$routes->add('data', 'Admin::getPelanggan');
+		$routes->post('data', 'Admin::getPelanggan');
 	});
 
 	$routes->group('transaksi', function($routes)
 	{
 		$routes->add('list', 'Admin::listTransaksi');
 		$routes->add('add', 'Admin::addTransaksi');
-		$routes->add('data', 'Admin::getTransaksi');
-		$routes->add('save', 'Admin::saveTransaksi');
-		$routes->add('print', 'Admin::printTransaksi');
-		$routes->add('status', 'Admin::statusTransaksi');
+		$routes->post('data', 'Admin::getTransaksi');
+		$routes->post('save', 'Admin::saveTransaksi');
+		$routes->post('print', 'Admin::printTransaksi');
+		$routes->post('status', 'Admin::statusTransaksi');
 		$routes->post('getCabangTujuan', 'Admin::getCabangTujuan');
 		$routes->post('getJadwal', 'Admin::getListJadwal');
 		$routes->post('getTransaksi', 'Admin::getListTransaksi');
-	});
-
-	$routes->group('penjadwalan', function($routes)
-	{
-		$routes->add('save', 'Admin::savePenjadwalan');
 	});
 
 	$routes->group('users', function($routes)

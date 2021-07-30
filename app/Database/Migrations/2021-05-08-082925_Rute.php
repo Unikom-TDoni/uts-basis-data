@@ -40,8 +40,8 @@ class Rute extends Migration
 		]);
 
 		$this->forge->addKey('id_rute', TRUE);
-		$this->forge->addForeignKey('id_cabang_asal','cabang','id_cabang');
-		$this->forge->addForeignKey('id_cabang_tujuan','cabang','id_cabang');
+		$this->forge->addForeignKey('id_cabang_asal','cabang','id_cabang','CASCADE','CASCADE');
+		$this->forge->addForeignKey('id_cabang_tujuan','cabang','id_cabang','CASCADE','CASCADE');
 		$this->forge->createTable('rute', TRUE);
 	}
 

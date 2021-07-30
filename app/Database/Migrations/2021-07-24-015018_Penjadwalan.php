@@ -32,9 +32,9 @@ class Penjadwalan extends Migration
 		]);
 		
 		$this->forge->addKey('id_penjadwalan', TRUE);
-		$this->forge->addForeignKey('id_jadwal','jadwal','id_jadwal');
-		$this->forge->addForeignKey('id_mobil','mobil','id_mobil');
-		$this->forge->addForeignKey('id_sopir','sopir','id_sopir');
+		$this->forge->addForeignKey('id_jadwal','jadwal','id_jadwal','CASCADE','CASCADE');
+		$this->forge->addForeignKey('id_mobil','mobil','id_mobil','CASCADE','CASCADE');
+		$this->forge->addForeignKey('id_sopir','sopir','id_sopir','CASCADE','CASCADE');
 		$this->forge->createTable('penjadwalan', TRUE);
 	}
 

@@ -110,7 +110,7 @@
         <script src="<?= base_url('assets/admin')?>/js/jquery.app.js"></script>
 
         <!-- Dashboard -->
-        <script src="<?= base_url('assets/admin')?>/js/jquery.dashboard.js"></script>
+        <!-- <script src="<?= base_url('assets/admin')?>/js/jquery.dashboard.js"></script> -->
 
         <!-- Chat -->
         <script src="<?= base_url('assets/admin')?>/js/jquery.chat.js"></script>

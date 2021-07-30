@@ -32,6 +32,7 @@ class Users extends Migration
 		]);
 
 		$this->forge->addKey('username', TRUE);
+		$this->forge->addForeignKey('id_cabang','cabang','id_cabang','CASCADE','CASCADE');
 		$this->forge->createTable('users', TRUE);
 	}
 

@@ -19,8 +19,8 @@ class Penjadwalan_model extends Model
 					mobil.kapasitas,
 					sopir.nama AS nama_sopir
 				 ')
-                 ->join('mobil', 'mobil.id_mobil = penjadwalan.id_mobil')
-                 ->join('sopir', 'sopir.id_sopir = penjadwalan.id_sopir')
+                 ->join('mobil', 'mobil.id_mobil = penjadwalan.id_mobil', 'left')
+                 ->join('sopir', 'sopir.id_sopir = penjadwalan.id_sopir', 'left')
                  ->where('penjadwalan.tgl_berangkat', $tgl_berangkat)
 				 ->where('penjadwalan.id_jadwal', $id_jadwal);
 
