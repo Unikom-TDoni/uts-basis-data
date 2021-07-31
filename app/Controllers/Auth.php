@@ -36,13 +36,12 @@ class Auth extends BaseController
 
 		if ($cek > 0)
 		{
-            $data_user = $this->users_model->find($username);
-            $arr_level = array('Admin', 'Pengadaan', 'Penjadwalan', 'Kasir');
+            $data_user = $this->users_model->getData($username)->getRowArray();
 
 			$this->session->set('user', $username);
 			$this->session->set('nama', $data_user['nama']);
 			$this->session->set('level', $data_user['level']);
-			$this->session->set('nama_level', $arr_level[$data_user['level']]);
+			$this->session->set('nama_level', $data_user['nama_level']);
 
             return redirect()->to('/admin');
  		}

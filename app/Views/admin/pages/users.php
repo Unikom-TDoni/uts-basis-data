@@ -39,7 +39,7 @@
                                 <td><?= $data['nama'] ?></td>
                                 <td><?= $data['username'] ?></td>
                                 <td><?= $data['nama_cabang'] ?></td>
-                                <td><?= $level[$data['level']] ?></td>
+                                <td><?= $data['nama_level'] ?></td>
                                 <td class="actions">
                                     <button class="btn btn-icon btn-sm btn-success" onclick="edit('<?= $data['username'] ?>')"> <i class="fa fa-edit"></i> </button> 
                                     <button class="btn btn-icon btn-sm btn-danger" onclick="hapus('<?= $data['username'] ?>')"> <i class="fa fa-trash"></i> </button>
@@ -55,7 +55,7 @@
     </div>
   </div> 
   
-  <div id="edit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<div id="edit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog"> 
         <div class="modal-content"> 
             <div class="modal-header"> 

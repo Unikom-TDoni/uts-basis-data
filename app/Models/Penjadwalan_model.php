@@ -15,12 +15,11 @@ class Penjadwalan_model extends Model
     {
         $query = $this->select(
 					'penjadwalan.*,
-					CONCAT(mobil.nomor_plat, " (", mobil.merk, ")") AS mobil, 
+					f_mobil_nama(id_mobil) AS mobil, 
 					mobil.kapasitas,
-					sopir.nama AS nama_sopir
+					f_sopir_nama(id_sopir) AS nama_sopir
 				 ')
                  ->join('mobil', 'mobil.id_mobil = penjadwalan.id_mobil', 'left')
-                 ->join('sopir', 'sopir.id_sopir = penjadwalan.id_sopir', 'left')
                  ->where('penjadwalan.tgl_berangkat', $tgl_berangkat)
 				 ->where('penjadwalan.id_jadwal', $id_jadwal);
 

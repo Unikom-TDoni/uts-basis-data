@@ -10,11 +10,16 @@ class Rute_model extends Model
 
     public function getData($id="", $is_aktif="")
     {
-        $query = $this->select('rute.*, CONCAT(c1.nama_cabang," - ",c2.nama_cabang) as nama_rute, c1.nama_cabang as nama_cabang_asal, c2.nama_cabang as nama_cabang_tujuan, k1.nama as kota_asal, k2.nama as kota_tujuan')
+        $query = $this->select('
+                    rute.*, 
+                    f_rute_nama(id_rute) as nama_rute, 
+                    f_cabang_nama(id_cabang_asal) as nama_cabang_asal, 
+                    f_cabang_nama(id_cabang_tujuan) as nama_cabang_tujuan,
+                    f_kota_nama(c1.id_kota) as kota_asal, 
+                    f_kota_nama(c2.id_kota) as kota_tujuan
+                 ')
                  ->join('cabang as c1', 'c1.id_cabang = rute.id_cabang_asal', 'left')
                  ->join('cabang as c2', 'c2.id_cabang = rute.id_cabang_tujuan', 'left')
-                 ->join('kota as k1', 'k1.id = c1.id_kota', 'left')
-                 ->join('kota as k2', 'k2.id = c2.id_kota', 'left')
                  ->orderBy('c1.nama_cabang, c2.nama_cabang');
 
         if(!empty($id))

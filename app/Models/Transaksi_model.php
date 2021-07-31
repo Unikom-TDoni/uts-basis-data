@@ -40,15 +40,12 @@ class Transaksi_model extends Model
                     'transaksi.*,
                     IF(is_batal=1, "CANCELLED", IF(is_lunas=1, "PAID", "BOOKED")) as status, 
                     jadwal.*, 
-                    pelanggan.*, 
-                    CONCAT(c1.nama_cabang," - ",c2.nama_cabang) as nama_rute, 
+                    f_pelanggan_nama(transaksi.telp) as nama, 
+                    f_rute_nama(jadwal.id_rute) as nama_rute, 
                     rute.harga_tiket'
                  )
                  ->join('jadwal', 'jadwal.id_jadwal = transaksi.id_jadwal')
                  ->join('rute', 'rute.id_rute = jadwal.id_rute')
-                 ->join('cabang as c1', 'c1.id_cabang = rute.id_cabang_asal')
-                 ->join('cabang as c2', 'c2.id_cabang = rute.id_cabang_tujuan')
-                 ->join('pelanggan', 'pelanggan.telp = transaksi.telp')
                  ->where('tgl_berangkat >=', $tgl_awal)
                  ->where('tgl_berangkat <=', $tgl_akhir)
                  ->orderBy('nomor_transaksi');
@@ -97,13 +94,13 @@ class Transaksi_model extends Model
                     'transaksi.*,
                     IF(is_batal=1, "CANCELLED", IF(is_lunas=1, "PAID", "BOOKED")) as status, 
                     jadwal.*, 
-                    pelanggan.*,
+                    f_pelanggan_nama(transaksi.telp) as nama,
                     CONCAT(c1.nama_cabang, " (", k1.nama, ")") as cabang_asal,
                     CONCAT(c2.nama_cabang, " (", k2.nama, ")") as cabang_tujuan,
                     CONCAT(c1.nama_cabang," - ",c2.nama_cabang) as nama_rute, 
                     rute.harga_tiket,
-                    IF(penjadwalan.id_mobil!="", CONCAT(mobil.nomor_plat, " (", mobil.merk, ")"), "-") as mobil,
-                    IF(penjadwalan.id_sopir!="", sopir.nama, "-") as nama_sopir'
+                    IF(penjadwalan.id_mobil!="", f_mobil_nama(penjadwalan.id_mobil), "-") as mobil,
+                    IF(penjadwalan.id_sopir!="", f_sopir_nama(penjadwalan.id_sopir), "-") as nama_sopir'
                  )
                  ->join('jadwal', 'jadwal.id_jadwal = transaksi.id_jadwal', 'left')
                  ->join('rute', 'rute.id_rute = jadwal.id_rute', 'left')
@@ -111,10 +108,7 @@ class Transaksi_model extends Model
                  ->join('kota as k1', 'k1.id = c1.id_kota', 'left')
                  ->join('cabang as c2', 'c2.id_cabang = rute.id_cabang_tujuan', 'left')
                  ->join('kota as k2', 'k2.id = c2.id_kota', 'left')
-                 ->join('pelanggan', 'pelanggan.telp = transaksi.telp', 'left')
                  ->join('penjadwalan', 'penjadwalan.tgl_berangkat = transaksi.tgl_berangkat AND penjadwalan.id_jadwal = transaksi.id_jadwal', 'left')
-                 ->join('mobil', 'mobil.id_mobil = penjadwalan.id_mobil', 'left')
-                 ->join('sopir', 'sopir.id_sopir = penjadwalan.id_sopir', 'left')
                  ->where('nomor_transaksi', $nomor_transaksi);
 
         return $query->get();
