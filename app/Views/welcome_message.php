@@ -343,6 +343,18 @@ foreach ($cabang as $item):?>
             </div>
         </div>
     </section>
+    <div class="section6" style="padding-bottom: 9.6rem;">
+        <div class="container">
+            <div class="row">
+                <div class="APImaps" id="APImaps" style="width: 100%; border-radius: 16px">
+                        <iframe height="300" style="border:0" loading="lazy" allowfullscreen 
+                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDJ2K6VQya4WNhCbQwEbn26TLpdHLqaYPQ&q=Bandung+Jalan+Buah+Batu+No+278"
+                        style="width: 100%;" onload="this.width=document.getElementById('APImaps').offsetWidth;">
+                        </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
     <footer class="footer">
         <div class="container">
             <div class="row footer-logo">
@@ -399,7 +411,7 @@ foreach ($cabang as $item):?>
                             <a href="#" class="social-media-icon-link"><i class="fa fa-twitter"></i></a>
                         </div>
                         <span class="phone">+62 822 2353 2365</span>
-                        <span class="address">Jl. Mayor Sastra Atmaja, Bandung, Indonesia</span>
+                        <span class="address">Jl. Buah Batu No.278, Bandung, Indonesia</span>
                     </div>
                 </div>
             </div>
