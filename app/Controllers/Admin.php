@@ -36,13 +36,13 @@ class Admin extends BaseController
 	public function index()
 	{
         $data['page']               = 'dashboard';
-        $data['jumlah_cabang']      = count($this->cabang_model->findAll());
-        $data['jumlah_rute']        = count($this->rute_model->findAll());
-        $data['jumlah_jadwal']      = count($this->jadwal_model->findAll());
-        $data['jumlah_users']       = count($this->users_model->findAll());
-        $data['jumlah_mobil']       = count($this->mobil_model->findAll());
-        $data['jumlah_sopir']       = count($this->sopir_model->findAll());
-        $data['jumlah_pelanggan']   = count($this->pelanggan_model->findAll());
+        $data['jumlah_cabang']      = $this->cabang_model->countAll();
+        $data['jumlah_rute']        = $this->rute_model->countAll();
+        $data['jumlah_jadwal']      = $this->jadwal_model->countAll();
+        $data['jumlah_users']       = $this->users_model->countAll();
+        $data['jumlah_mobil']       = $this->mobil_model->countAll();
+        $data['jumlah_sopir']       = $this->sopir_model->countAll();
+        $data['jumlah_pelanggan']   = $this->pelanggan_model->countAll();
         $data['transaksi']          = $this->transaksi_model->getListData(date('Y-m-d'), date('Y-m-d'), 0)->getResultArray();
         $data['jumlah_transaksi']   = count($data['transaksi']);
         $data['level']              = session()->get('level');

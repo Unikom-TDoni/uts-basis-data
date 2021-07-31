@@ -11,10 +11,8 @@ class Jadwal_model extends Model
 
     public function getData($id="")
     {
-        $query = $this->select('jadwal.*, CONCAT(c1.nama_cabang," - ",c2.nama_cabang) as nama_rute, rute.harga_tiket')
+        $query = $this->select('jadwal.*, f_rute_nama(jadwal.id_rute) as nama_rute, rute.harga_tiket')
                  ->join('rute', 'rute.id_rute = jadwal.id_rute', 'left')
-                 ->join('cabang as c1', 'c1.id_cabang = rute.id_cabang_asal', 'left')
-                 ->join('cabang as c2', 'c2.id_cabang = rute.id_cabang_tujuan', 'left')
                  ->orderBy('nama_rute, jam_berangkat');
 
         if(!empty($id))
@@ -38,7 +36,7 @@ class Jadwal_model extends Model
     {
         $query = $this->select('
                     jadwal.*,
-                    CONCAT(c1.nama_cabang," - ",c2.nama_cabang) as nama_rute,
+                    f_rute_nama(jadwal.id_rute) as nama_rute,
                     COUNT(DISTINCT transaksi.nomor_transaksi) as kursi_terisi, 
                     mobil.kapasitas,
                     penjadwalan.id_mobil,
@@ -46,9 +44,6 @@ class Jadwal_model extends Model
                     penjadwalan.id_sopir,
                     IF(penjadwalan.id_sopir!="", sopir.nama, "") as nama_sopir
                 ')
-                ->join('rute', 'rute.id_rute = jadwal.id_rute', 'left')
-                ->join('cabang as c1', 'c1.id_cabang = rute.id_cabang_asal', 'left')
-                ->join('cabang as c2', 'c2.id_cabang = rute.id_cabang_tujuan', 'left')
                 ->join('transaksi', 'transaksi.tgl_berangkat = \''.$tgl_berangkat.'\' AND transaksi.id_jadwal = jadwal.id_jadwal', 'left')
                 ->join('penjadwalan', 'penjadwalan.tgl_berangkat = \''.$tgl_berangkat.'\' AND penjadwalan.id_jadwal = jadwal.id_jadwal', 'left')
                 ->join('mobil', 'mobil.id_mobil = penjadwalan.id_mobil', 'left')
