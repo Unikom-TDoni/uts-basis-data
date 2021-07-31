@@ -120,11 +120,20 @@ $routes->group('admin', ['filter' => 'login'], function($routes)
 	});
 });
 
-$routes->group('user', function($routes) {
+$routes->group('user', function($routes) 
+{
 	$routes->add('/', 'Home::index');
 	$routes->post('jadwal', 'Home::getJadwal');
 });
 
+// API
+$routes->group('api', function($routes) 
+{
+	$routes->resource('provinsi');
+	$routes->resource('kota');
+	$routes->get('list_kota', 'Kota::getListKotaByProvinsi');
+	$routes->resource('cabang');
+});
 
 /*
  * --------------------------------------------------------------------
