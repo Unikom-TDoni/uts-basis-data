@@ -131,8 +131,10 @@ $routes->group('api', function($routes)
 {
 	$routes->resource('provinsi');
 	$routes->resource('kota');
-	$routes->get('list_kota', 'Kota::getListKotaByProvinsi');
 	$routes->resource('cabang');
+
+	$routes->get('list_kota', 'Kota::getListKotaByProvinsi');
+	$routes->post('cabang_tujuan', 'Cabang::cabangTujuan');
 });
 
 /*

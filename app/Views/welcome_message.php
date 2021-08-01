@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>RD Trans</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= base_url('assets/user')?>/js/bootstrap/bootstrap.min.css">
@@ -32,7 +32,7 @@
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Pulls
+                                Pools
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="#">Action</a>
@@ -136,23 +136,13 @@
                     <form action="">
                         <div class="forminput">
                             <div class="formsection pull-awal">
-                                <label for="pull-awal">Pull Keberangkatan</label>
-                                <select name="pull-awal" id="pull-awal">
-                                    <?php
-
-                                    use CodeIgniter\CLI\Console;
-
-foreach ($cabang as $item):?>
-                                        <option <?php if($item->id_cabang == old('pull-awal')) echo 'selected="selected"'; ?> value="<?= $item->id_cabang ?>"><?= $item->nama_cabang ?></option>
-                                    <?php endforeach;?>
+                                <label for="pull-awal">Pool Keberangkatan</label>
+                                <select name="pull-awal" id="pull-awal" onchange="getCabangTujuan()">
                                 </select>
                             </div>
                             <div class="formsection pull-akhir">
-                                <label for="pull-akhir">Pull Tujuan</label>
+                                <label for="pull-akhir">Pool Tujuan</label>
                                 <select name="pull-akhir" id="pull-akhir">
-                                    <?php foreach ($cabang as $item):?>
-                                        <option <?php if($item->id_cabang == old('pull-akhir')) echo 'selected="selected"'; ?> value="<?= $item->id_cabang ?>"><?= $item->nama_cabang ?></option>
-                                    <?php endforeach;?>
                                 </select>
                             </div>
                             <div class="formsection date-input">
@@ -415,6 +405,54 @@ foreach ($cabang as $item):?>
 </html>
 
 <script>
+    $( document ).ready(function() 
+    {
+        getCabangAsal();
+    });
+
+    function getCabangAsal()
+    {
+        $("#pull-awal").html('');
+        
+        $.ajax(
+        {
+            url:"<?= site_url('api/cabang') ?>",
+            type: "GET",
+            dataType : 'json',
+            success: function(result)
+            {
+                $.each(result,function(key,value)
+                {
+                    $("#pull-awal").append('<option value="'+value.id_cabang+'">'+value.nama_cabang+'</option>');
+                });
+
+                getCabangTujuan();
+            }
+        });
+    }
+
+    function getCabangTujuan()
+    {
+        $("#pull-akhir").html('');
+        
+        $.ajax(
+        {
+            url:"<?= site_url('api/cabang_tujuan') ?>",
+            type: "POST",
+            data: {
+                id: $("#pull-awal").val()
+            },
+            dataType : 'json',
+            success: function(result)
+            {
+                $.each(result,function(key,value)
+                {
+                    $("#pull-akhir").append('<option value="'+value.id_cabang+'">'+value.nama_cabang+'</option>');
+                });
+            }
+        });
+    }
+
     function getJadwalKeberangkatan()
     {
         event.preventDefault();

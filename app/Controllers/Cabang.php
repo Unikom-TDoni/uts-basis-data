@@ -5,6 +5,7 @@ namespace App\Controllers;
 use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
 use App\Models\Cabang_model;
+use App\Models\Rute_model;
 
 class Cabang extends ResourceController
 {
@@ -13,6 +14,7 @@ class Cabang extends ResourceController
 	public function __construct()
     {
         $this->cabang_model = new Cabang_model();
+        $this->rute_model   = new Rute_model();
     }
 
 	public function index()
@@ -101,6 +103,20 @@ class Cabang extends ResourceController
 		{
             return $this->failNotFound('No Data Found with id '.$id);
         }
-         
+    }
+
+    public function cabangTujuan()
+    {
+        $id_cabang_asal = $this->request->getVar('id');
+        $data = $this->rute_model->getCabangTujuanRute($id_cabang_asal)->getResultArray();
+
+        if($data)
+		{
+            return $this->respond($data);
+        }
+		else
+		{
+            return $this->failNotFound('No Data Found with id '.$id);
+        }
     }
 }
