@@ -147,7 +147,7 @@
                             </div>
                             <div class="formsection date-input">
                                 <label for="tanggalberangkat">Tanggal Berangkat</label>
-                                <input type="date" name="tanggalberangkat" id="tanggalberangkat">
+                                <input type="date" name="tanggalberangkat" id="tanggalberangkat" value="<?= date("Y-m-d") ?>">
                             </div>
                             <div class="formsection passanger">
                                 <label for="passanger">Penumpang</label>
@@ -194,8 +194,8 @@
                     <div class="steps">
                         <div class="step">
                             <div class="title --title">
-                                <h3 data-aria="1">Pilih Pull Keberangkatan & Tujuan</h3>
-                                <span>Pilih kota dan pull keberangkatan yang telah kami sediakan. Untuk saat ini kami hanya beroperasi di 4 kota besar. Lalu pilih tujuan kota dan pull.</span>
+                                <h3 data-aria="1">Pilih Pool Keberangkatan & Tujuan</h3>
+                                <span>Pilih kota dan pool keberangkatan yang telah kami sediakan. Untuk saat ini kami hanya beroperasi di 4 kota besar. Lalu pilih tujuan kota dan pool.</span>
                             </div>
                         </div>
                         <div class="step">
@@ -224,7 +224,7 @@
         <div class="container">
             <div class="row">
                 <div class="inner --title">
-                    <h2>Pull Shuttle</h2>
+                    <h2>Pool Shuttle</h2>
                     <p>Melayani perjalanan  shuttle di kota besar di Jawa.</p>
                 </div>
             </div>
@@ -470,7 +470,7 @@
         event.preventDefault();
         $.ajax(
         {
-            url:"<?= site_url('user/jadwal') ?>",
+            url:"<?= site_url('api/jadwal') ?>",
             type: "POST",
             data: {
                 id_cabang_asal: document.getElementById("pull-awal").value,
@@ -499,8 +499,9 @@
                     $("#price").text("Rp.0");
                     $("#status-pesan").text("Maaf rute tidak ditemukan");
                 }
-                else {
-                    $("#price").text("Rp.135.000");
+                else 
+                {
+                    $("#price").text("Rp " + formatRupiah(result.rute.harga_tiket));
                     $("#status-pesan").text("Dari " + result.cabangAsal.nama_kota + ", " + result.cabangAsal.nama_cabang + 
                         " ke " + result.cabangTujuan.nama_kota + ", " + result.cabangTujuan.nama_cabang +
                         " memakan waktu sekitar " + result.rute.waktu_tempuh + " menit."
@@ -508,5 +509,24 @@
                 }
             },
         });
+    }
+
+    function formatRupiah(angka, prefix)
+    {
+        var number_string = angka.replace(/[^,\d]/g, '').toString(),
+        split   		= number_string.split(','),
+        sisa     		= split[0].length % 3,
+        rupiah     		= split[0].substr(0, sisa),
+        ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
+    
+        // tambahkan titik jika yang di input sudah menjadi angka ribuan
+        if(ribuan)
+        {
+            separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+    
+        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+        return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
     }
 </script>

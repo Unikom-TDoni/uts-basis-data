@@ -135,6 +135,7 @@ $routes->group('api', function($routes)
 
 	$routes->get('list_kota', 'Kota::getListKotaByProvinsi');
 	$routes->post('cabang_tujuan', 'Cabang::cabangTujuan');
+	$routes->post('jadwal', 'Home::getJadwal');
 });
 
 /*
