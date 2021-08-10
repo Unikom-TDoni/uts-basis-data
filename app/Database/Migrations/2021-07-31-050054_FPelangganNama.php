@@ -8,7 +8,7 @@ class FPelangganNama extends Migration
 {
 	public function up()
 	{
-		$sql = "CREATE FUNCTION f_pelanggan_nama(no_telp int(11))
+		$sql = "CREATE FUNCTION f_pelanggan_nama(no_telp varchar(20))
 				RETURNS varchar(100)
 				DETERMINISTIC
 				BEGIN
