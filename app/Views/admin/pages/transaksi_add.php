@@ -398,7 +398,7 @@
 
                     status  = '<label class="label label-'+label_status+'">'+value.status+'</label>';
                     detail  = '<a href="#" class="btn btn-icon btn-sm btn-warning" onclick="showDetailTransaksi(\''+value.nomor_transaksi+'\')"><i class="fa fa-eye"></i> Detail</a>';
-                    data    = [value.nomor_kursi, value.nomor_transaksi, value.telp, value.nama, status, detail];
+                    data    = [value.nomor_kursi, value.nomor_transaksi, value.nama, value.telp, status, detail];
                     $('#datatable').dataTable().fnAddData(data);
                 });
             }

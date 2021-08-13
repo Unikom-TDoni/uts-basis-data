@@ -15,9 +15,9 @@ class Penjadwalan_model extends Model
     {
         $query = $this->select(
 					'penjadwalan.*,
-					f_mobil_nama(id_mobil) AS mobil, 
+					f_mobil_nama(penjadwalan.id_mobil) AS mobil, 
 					mobil.kapasitas,
-					f_sopir_nama(id_sopir) AS nama_sopir
+					f_sopir_nama(penjadwalan.id_sopir) AS nama_sopir
 				 ')
                  ->join('mobil', 'mobil.id_mobil = penjadwalan.id_mobil', 'left')
                  ->where('penjadwalan.tgl_berangkat', $tgl_berangkat)

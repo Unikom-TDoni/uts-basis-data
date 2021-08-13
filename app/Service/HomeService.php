@@ -23,10 +23,11 @@ class HomeService
 
     public function getJadwal($asal, $tujuan)
     {   
-        $data['cabangAsal'] = $this->cabangRepo->getCabang($asal);
-        $data['cabangTujuan'] = $this->cabangRepo->getCabang($tujuan);
-        $data['rute'] = $this->ruteRepo->getWaktuTempuh($asal, $tujuan);
-        $data['jadwal'] = $this->jadwalRepo->getJamBerangkat($asal, $tujuan);
+        $data['cabangAsal']     = $this->cabangRepo->getCabang($asal);
+        $data['cabangTujuan']   = $this->cabangRepo->getCabang($tujuan);
+        $data['rute']           = $this->ruteRepo->getDataRute($asal, $tujuan);
+        $data['jadwal']         = $this->jadwalRepo->getJamBerangkat($asal, $tujuan);
+
         return $data;
     }
 }

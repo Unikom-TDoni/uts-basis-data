@@ -120,11 +120,23 @@ $routes->group('admin', ['filter' => 'login'], function($routes)
 	});
 });
 
-$routes->group('user', function($routes) {
+$routes->group('user', function($routes) 
+{
 	$routes->add('/', 'Home::index');
 	$routes->post('jadwal', 'Home::getJadwal');
 });
 
+// API
+$routes->group('api', function($routes) 
+{
+	$routes->resource('provinsi');
+	$routes->resource('kota');
+	$routes->resource('cabang');
+
+	$routes->get('list_kota', 'Kota::getListKotaByProvinsi');
+	$routes->post('cabang_tujuan', 'Cabang::cabangTujuan');
+	$routes->post('jadwal', 'Home::getJadwal');
+});
 
 /*
  * --------------------------------------------------------------------
