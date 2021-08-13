@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>RD Trans</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= base_url('assets/user')?>/js/bootstrap/bootstrap.min.css">
@@ -32,7 +32,7 @@
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Pulls
+                                Pools
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="#">Action</a>
@@ -136,28 +136,18 @@
                     <form action="">
                         <div class="forminput">
                             <div class="formsection pull-awal">
-                                <label for="pull-awal">Pull Keberangkatan</label>
-                                <select name="pull-awal" id="pull-awal">
-                                    <?php
-
-                                    use CodeIgniter\CLI\Console;
-
-foreach ($cabang as $item):?>
-                                        <option <?php if($item->id_cabang == old('pull-awal')) echo 'selected="selected"'; ?> value="<?= $item->id_cabang ?>"><?= $item->nama_cabang ?></option>
-                                    <?php endforeach;?>
+                                <label for="pull-awal">Pool Keberangkatan</label>
+                                <select name="pull-awal" id="pull-awal" onchange="getCabangTujuan()">
                                 </select>
                             </div>
                             <div class="formsection pull-akhir">
-                                <label for="pull-akhir">Pull Tujuan</label>
+                                <label for="pull-akhir">Pool Tujuan</label>
                                 <select name="pull-akhir" id="pull-akhir">
-                                    <?php foreach ($cabang as $item):?>
-                                        <option <?php if($item->id_cabang == old('pull-akhir')) echo 'selected="selected"'; ?> value="<?= $item->id_cabang ?>"><?= $item->nama_cabang ?></option>
-                                    <?php endforeach;?>
                                 </select>
                             </div>
                             <div class="formsection date-input">
                                 <label for="tanggalberangkat">Tanggal Berangkat</label>
-                                <input type="date" name="tanggalberangkat" id="tanggalberangkat">
+                                <input type="date" name="tanggalberangkat" id="tanggalberangkat" value="<?= date("Y-m-d") ?>">
                             </div>
                             <div class="formsection passanger">
                                 <label for="passanger">Penumpang</label>
@@ -204,8 +194,8 @@ foreach ($cabang as $item):?>
                     <div class="steps">
                         <div class="step">
                             <div class="title --title">
-                                <h3 data-aria="1">Pilih Pull Keberangkatan & Tujuan</h3>
-                                <span>Pilih kota dan pull keberangkatan yang telah kami sediakan. Untuk saat ini kami hanya beroperasi di 4 kota besar. Lalu pilih tujuan kota dan pull.</span>
+                                <h3 data-aria="1">Pilih Pool Keberangkatan & Tujuan</h3>
+                                <span>Pilih kota dan pool keberangkatan yang telah kami sediakan. Untuk saat ini kami hanya beroperasi di 4 kota besar. Lalu pilih tujuan kota dan pool.</span>
                             </div>
                         </div>
                         <div class="step">
@@ -234,7 +224,7 @@ foreach ($cabang as $item):?>
         <div class="container">
             <div class="row">
                 <div class="inner --title">
-                    <h2>Pull Shuttle</h2>
+                    <h2>Pool Shuttle</h2>
                     <p>Melayani perjalanan  shuttle di kota besar di Jawa.</p>
                 </div>
             </div>
@@ -343,6 +333,21 @@ foreach ($cabang as $item):?>
             </div>
         </div>
     </section>
+    <div class="section6" style="padding-bottom: 9.6rem;">
+        <div class="container">
+            <div class="row">
+                <div class="APImaps" id="APImaps" style="width: 100%; border-radius: 16px">
+                        <iframe height="300" style="border:0" loading="lazy" allowfullscreen 
+                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDJ2K6VQya4WNhCbQwEbn26TLpdHLqaYPQ&q=Bandung+Jalan+Buah+Batu+No+278"
+                        style="width: 100%;" onload="this.width=document.getElementById('APImaps').offsetWidth;">
+                        </iframe>
+                </div>
+                <div class="APImaps" id="APIYoutube" style="width: 100%; border-radius: 16px">
+                        
+                </div>
+            </div>
+        </div>
+    </div>
     <footer class="footer">
         <div class="container">
             <div class="row footer-logo">
@@ -399,7 +404,7 @@ foreach ($cabang as $item):?>
                             <a href="#" class="social-media-icon-link"><i class="fa fa-twitter"></i></a>
                         </div>
                         <span class="phone">+62 822 2353 2365</span>
-                        <span class="address">Jl. Mayor Sastra Atmaja, Bandung, Indonesia</span>
+                        <span class="address">Jl. Buah Batu No.278, Bandung, Indonesia</span>
                     </div>
                 </div>
             </div>
@@ -414,13 +419,98 @@ foreach ($cabang as $item):?>
 </body>
 </html>
 
+<script src="https://apis.google.com/js/api.js"></script>
 <script>
+    function loadClient() 
+    {
+        gapi.client.setApiKey("AIzaSyDXACH1pkUHjEPjXVpZ2Uqdk66WRCsHIJ0");
+        return gapi.client.load("https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest")
+            .then(function() { execute(); },
+                function(err) { console.error("Error loading GAPI client for API", err); });
+    }
+
+    function execute() 
+    {
+        return gapi.client.youtube.playlistItems.list({
+        "part": [
+            "snippet,contentDetails"
+        ],
+        "maxResults": 3,
+        "playlistId": "PL0SzG3V1UinxVY_3D_6wj1p24ggrEW33J"
+        })
+            .then(function(response) {
+                    let randomId = Math.floor(Math.random() * response.result.items.length);
+                    let ifrm = document.createElement("iframe");
+                    ifrm.height = "640";
+                    ifrm.width = "width:100%";
+                    ifrm.setAttribute("style", "border:0");
+                    ifrm.setAttribute("loading", "lazy");
+                    ifrm.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture");
+                    ifrm.setAttribute("src", "https://www.youtube.com/embed/"+response.result.items[randomId].contentDetails.videoId+"?autoplay=1&mute=1&enablejsapi=1");
+                    ifrm.setAttribute("onload","this.width=document.getElementById('APImaps').offsetWidth;");
+                    let element = document.getElementById("APIYoutube");
+                    element.appendChild(ifrm);
+                },
+                function(err) { console.error("Execute error", err); });
+    }
+</script>
+<script type="text/javascript" src="https://apis.google.com/js/client.js?onload=loadClient"></script>
+
+<script>
+    $( document ).ready(function() 
+    {
+        getCabangAsal();
+    });
+
+    function getCabangAsal()
+    {
+        $("#pull-awal").html('');
+        
+        $.ajax(
+        {
+            url:"<?= site_url('api/cabang') ?>",
+            type: "GET",
+            dataType : 'json',
+            success: function(result)
+            {
+                $.each(result,function(key,value)
+                {
+                    $("#pull-awal").append('<option value="'+value.id_cabang+'">'+value.nama_cabang+'</option>');
+                });
+
+                getCabangTujuan();
+            }
+        });
+    }
+
+    function getCabangTujuan()
+    {
+        $("#pull-akhir").html('');
+        
+        $.ajax(
+        {
+            url:"<?= site_url('api/cabang_tujuan') ?>",
+            type: "POST",
+            data: {
+                id: $("#pull-awal").val()
+            },
+            dataType : 'json',
+            success: function(result)
+            {
+                $.each(result,function(key,value)
+                {
+                    $("#pull-akhir").append('<option value="'+value.id_cabang+'">'+value.nama_cabang+'</option>');
+                });
+            }
+        });
+    }
+
     function getJadwalKeberangkatan()
     {
         event.preventDefault();
         $.ajax(
         {
-            url:"<?= site_url('user/jadwal') ?>",
+            url:"<?= site_url('api/jadwal') ?>",
             type: "POST",
             data: {
                 id_cabang_asal: document.getElementById("pull-awal").value,
@@ -449,8 +539,9 @@ foreach ($cabang as $item):?>
                     $("#price").text("Rp.0");
                     $("#status-pesan").text("Maaf rute tidak ditemukan");
                 }
-                else {
-                    $("#price").text("Rp.135.000");
+                else 
+                {
+                    $("#price").text("Rp " + formatRupiah(result.rute.harga_tiket));
                     $("#status-pesan").text("Dari " + result.cabangAsal.nama_kota + ", " + result.cabangAsal.nama_cabang + 
                         " ke " + result.cabangTujuan.nama_kota + ", " + result.cabangTujuan.nama_cabang +
                         " memakan waktu sekitar " + result.rute.waktu_tempuh + " menit."
@@ -458,5 +549,24 @@ foreach ($cabang as $item):?>
                 }
             },
         });
+    }
+
+    function formatRupiah(angka, prefix)
+    {
+        var number_string = angka.replace(/[^,\d]/g, '').toString(),
+        split   		= number_string.split(','),
+        sisa     		= split[0].length % 3,
+        rupiah     		= split[0].substr(0, sisa),
+        ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
+    
+        // tambahkan titik jika yang di input sudah menjadi angka ribuan
+        if(ribuan)
+        {
+            separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+    
+        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+        return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
     }
 </script>
